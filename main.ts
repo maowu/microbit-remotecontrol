@@ -16,13 +16,19 @@ namespace GameRemoteConsole{
     cmd_list = [0, 0, 0]
 
     enum idNum {
+        //% blockId="r1" block="[1]"
         R1 = 1,
+        //% blockId="r2" block="[2]"
         R2 = 2,
+        //% blockId="r3" block="[3]"
         R3 = 3,
+        //% blockId="r4" block="[4]"
         R4 = 4,
+        //% blockId="r5" block="[5]"
         R5 = 5,
+        //% blockId="r6" block="[6]"
         R6 = 6
-    };
+    }
 
     /**
     * 初始，設定radio群組
