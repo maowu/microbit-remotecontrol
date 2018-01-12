@@ -15,28 +15,40 @@ namespace GameRemoteConsole{
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
 
-    enum idNum {
-        //% blockId="r1" block="[1]"
+    enum class idNum {
+        //% block="[1]"
         R1 = 1,
-        //% blockId="r2" block="[2]"
+        //% block="[2]"
         R2 = 2,
-        //% blockId="r3" block="[3]"
+        //% block="[3]"
         R3 = 3,
-        //% blockId="r4" block="[4]"
+        //% block="[4]"
         R4 = 4,
-        //% blockId="r5" block="[5]"
+        //% block="[5]"
         R5 = 5,
-        //% blockId="r6" block="[6]"
-        R6 = 6
+        //% block="[6]"
+        R6 = 6,
+    }
+
+    //% blockId="radioid_conv" block="%del"
+    export function radioid_conv(del : idNum) : number {
+      switch(del) {
+          case idNum.R1: return 1;
+          case idNum.R2: return 2;
+          case idNum.R3: return 3;
+          case idNum.R4: return 4;
+          case idNum.R5: return 5;
+          case idNum.R6: return 6;
+      }
     }
 
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id"
+    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id=radioid_conv"
     //% blockGap=20 weight=90
     //% group_id.min=1 group_id.max=6
-    export function ConsoleInit(group_id: idNum) {
+    export function ConsoleInit(group_id: number) {
         radio.setGroup(group_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
