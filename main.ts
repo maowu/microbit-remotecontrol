@@ -1,4 +1,12 @@
 
+enum IdName {
+    A = 1,
+    B = 2,
+    C = 3,
+    D = 4,
+    E = 5,
+    F = 6,
+}
 
 //% weight=0 color=#3CB371 icon="\uf11b"
 namespace GameRemoteConsole{
@@ -17,14 +25,7 @@ namespace GameRemoteConsole{
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
 
-    enum IdName {
-        A = 1,
-        B = 2,
-        C = 3,
-        D = 4,
-        E = 5,
-        F = 6,
-    }
+    
     
 
 
