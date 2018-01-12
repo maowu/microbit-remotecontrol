@@ -22,7 +22,7 @@ namespace GameRemoteConsole{
     //% blockId="ConsoleInit" block="console init|id(1-10) %group_id"
     //% blockGap=1 weight=90
     //% group_id.min=1 group_id.max=10
-    export funciton ConsoleInit(group_id: number) {
+    export function ConsoleInit(group_id: number) {
         radio.setGroup(group_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
