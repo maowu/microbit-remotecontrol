@@ -1,17 +1,17 @@
 
 enum SetGroup {
-    //% block="A"
-    A,
-    //% block="B"
-    B,
-    //% block="C"
-    C,
-    //% block="D"
-    D,
-    //% block="E"
-    E,
-    //% block="F"
-    F
+    //% block="P1"
+    A = 0,
+    //% block="P2"
+    B = 1,
+    //% block="P3"
+    C = 2,
+    //% block="P4"
+    D = 3,
+    //% block="P5"
+    E = 4,
+    //% block="P6"
+    F = 5
 }
 
 //% weight=0 color=#3CB371 icon="\uf11b"
@@ -35,7 +35,7 @@ namespace GameRemoteConsole{
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|group id %group_id"
+    //% blockId="ConsoleInit" block="console init|id %group_id"
     //% blockGap=20 weight=90
     export function ConsoleInit(group_id: SetGroup) {
         radio.setGroup(group_id)
