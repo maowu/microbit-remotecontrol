@@ -1,17 +1,17 @@
 
 enum SetGroup {
     //% block="P1"
-    A = 0,
+    A,
     //% block="P2"
-    B = 1,
+    B,
     //% block="P3"
-    C = 2,
+    C,
     //% block="P4"
-    D = 3,
+    D,
     //% block="P5"
-    E = 4,
+    E,
     //% block="P6"
-    F = 5
+    F
 }
 
 //% weight=0 color=#3CB371 icon="\uf11b"
@@ -38,7 +38,16 @@ namespace GameRemoteConsole{
     //% blockId="ConsoleInit" block="console init|id %group_id"
     //% blockGap=20 weight=90
     export function ConsoleInit(group_id: SetGroup) {
-        radio.setGroup(group_id)
+        let t_id = 0
+        switch(group_id) {
+            case SetGroup.P1: t_id = 1; break;
+            case SetGroup.P2: t_id = 2; break;
+            case SetGroup.P3: t_id = 3; break;
+            case SetGroup.P4: t_id = 4; break;
+            case SetGroup.P5: t_id = 5; break;
+            case SetGroup.P6: t_id = 6; break;
+        }
+        radio.setGroup(t_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
     }
