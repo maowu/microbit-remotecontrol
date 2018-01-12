@@ -1,17 +1,17 @@
 
 enum SetGroup {
     //% block="P1"
-    A,
+    P1,
     //% block="P2"
-    B,
+    P2,
     //% block="P3"
-    C,
+    P3,
     //% block="P4"
-    D,
+    P4,
     //% block="P5"
-    E,
+    P5,
     //% block="P6"
-    F
+    P6
 }
 
 //% weight=0 color=#3CB371 icon="\uf11b"
@@ -30,7 +30,6 @@ namespace GameRemoteConsole{
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
-
 
     /**
     * 初始，設定radio群組
