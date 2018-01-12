@@ -31,7 +31,7 @@ namespace GameRemoteConsole{
     }
 
     //% blockId="radioid_conv" block="%del"
-    export function radioid_conv(del : idNum) : number {
+    export function radioidConvert(del : idNum) : number {
       switch(del) {
           case idNum.R1: return 1;
           case idNum.R2: return 2;
