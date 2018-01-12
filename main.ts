@@ -16,18 +16,18 @@ namespace GameRemoteConsole{
     cmd_list = [0, 0, 0]
 
     enum idNum {
-        [1] = 1,
-        [2] = 2,
-        [3] = 3,
-        [4] = 4,
-        [5] = 5,
-        [6] = 6
-    }
+        R1 = 1,
+        R2 = 2,
+        R3 = 3,
+        R4 = 4,
+        R5 = 5,
+        R6 = 6
+    };
 
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|id(0-10) %group_id"
+    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id"
     //% blockGap=20 weight=90
     //% group_id.min=1 group_id.max=6
     export function ConsoleInit(group_id: idNum) {
