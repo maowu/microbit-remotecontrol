@@ -15,7 +15,7 @@ namespace GameRemoteConsole{
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
 
-    enum class idNum {
+    enum idNum {
         //% block="[1]"
         R1 = 1,
         //% block="[2]"
