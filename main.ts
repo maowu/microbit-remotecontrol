@@ -1,5 +1,5 @@
 
-enum IdName {
+enum SetGroup {
     //% block="A"
     A,
     //% block="B"
@@ -11,7 +11,7 @@ enum IdName {
     //% block="E"
     E,
     //% block="F"
-    F,
+    F
 }
 
 //% weight=0 color=#3CB371 icon="\uf11b"
@@ -35,9 +35,9 @@ namespace GameRemoteConsole{
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|id %group_id"
+    //% blockId="ConsoleInit" block="console init|group id %group_id"
     //% blockGap=20 weight=90
-    export function ConsoleInit(group_id: IdName) {
+    export function ConsoleInit(group_id: SetGroup) {
         radio.setGroup(group_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
