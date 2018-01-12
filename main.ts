@@ -1,4 +1,4 @@
-//% weight=0 color=#3CB371 icon="\uf0ad"
+//% weight=0 color=#3CB371 icon="\uf11b"
 namespace GameRemoteConsole{
     let btnA = 0
     let btnB = 0
