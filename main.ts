@@ -18,29 +18,23 @@ namespace GameRemoteConsole{
     cmd_list = [0, 0, 0]
 
     enum IdName {
-        //% block="r1"
-        R1 = 1,
-        //% block="r2"
-        R2 = 2,
-        //% block="r3"
-        R3 = 3,
-        //% block="r4"
-        R4 = 4,
-        //% block="r5"
-        R5 = 5,
-        //% block="r6"
-        R6 = 6,
+        A = 1,
+        B = 2,
+        C = 3,
+        D = 4,
+        E = 5,
+        F = 6,
     };
     
     //% blockId="groupid_conv" block="%gid"
     export function ConsoleInit(gid: IdName):number {
         switch(gid) {
-            case R1: return 1;
-            case R2: return 2;
-            case R3: return 3;
-            case R4: return 4;
-            case R5: return 5;
-            case R6: return 6;
+            case A: return 1;
+            case B: return 2;
+            case C: return 3;
+            case D: return 4;
+            case E: return 5;
+            case F: return 6;
         }
     }
 
@@ -50,7 +44,7 @@ namespace GameRemoteConsole{
     //% blockId="ConsoleInit" block="console init|id(1-6) %group_id=groupid_conv"
     //% blockGap=20 weight=90
     //% group_id.min=1 group_id.max=6
-    export function ConsoleInit(group_id: number) {
+    export function ConsoleInit(group_id: IdNanme) {
         radio.setGroup(group_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
