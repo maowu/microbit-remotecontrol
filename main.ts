@@ -1,32 +1,4 @@
-enum idName {
-    //% blockIdentity=radioid.idNumber block="[1]"
-    R1 = 1,
-    //% blockIdentity=radioid.idNumber block="[2]"
-    R2 = 2,
-    //% blockIdentity=radioid.idNumber block="[3]"
-    R3 = 3,
-    //% blockIdentity=radioid.idNumber block="[4]"
-    R4 = 4,
-    //% blockIdentity=radioid.idNumber block="[5]"
-    R5 = 5,
-    //% blockIdentity=radioid.idNumber block="[6]"
-    R6 = 6,
-}
 
-namespace radioid {
-    //% weight=50 blockGap=8
-    //% blockId=builtin_radioid block="radioid "
-    export function radioid_conv(i: idName): Image {
-        switch(i) {
-            case idName.R1: return 1;
-            case idName.R2: return 2;
-            case idName.R3: return 3;
-            case idName.R4: return 4;
-            case idName.R5: return 5;
-            case idName.R6: return 6;
-        }
-    }
-}
 
 //% weight=0 color=#3CB371 icon="\uf11b"
 namespace GameRemoteConsole{
@@ -45,15 +17,29 @@ namespace GameRemoteConsole{
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
 
+    enum idName {
+        //% block="[1]"
+        R1 = 1,
+        //% block="[2]"
+        R2 = 2,
+        //% block="[3]"
+        R3 = 3,
+        //% block="[4]"
+        R4 = 4,
+        //% block="[5]"
+        R5 = 5,
+        //% block="[6]"
+        R6 = 6,
+    }   
     
 
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id=radioid.builtin_radioid"
+    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id=idName"
     //% blockGap=20 weight=90
     //% group_id.min=1 group_id.max=6
-    export function ConsoleInit(group_id: number) {
+    export function ConsoleInit(group_id: idName) {
         radio.setGroup(group_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
