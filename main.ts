@@ -24,24 +24,14 @@ namespace GameRemoteConsole{
         D = 4,
         E = 5,
         F = 6,
-    };
-    
-    //% blockId="groupid_conv" block="%gid"
-    export function ConsoleInit(gid: IdName):number {
-        switch(gid) {
-            case A: return 1;
-            case B: return 2;
-            case C: return 3;
-            case D: return 4;
-            case E: return 5;
-            case F: return 6;
-        }
     }
+    
+
 
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id=groupid_conv"
+    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id"
     //% blockGap=20 weight=90
     //% group_id.min=1 group_id.max=6
     export function ConsoleInit(group_id: IdNanme) {
