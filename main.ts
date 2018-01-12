@@ -10,26 +10,28 @@ namespace GameRemoteConsole{
     let lastP0 = 0
     let lastP1 = 0
     let lastP2 = 0
-    let imu_tiemr = 0;
+    let imu_tiemr = 0
+
+    let cmd_list: number[] = []
+    cmd_list = [0, 0, 0]
 
 
     /**
     * 初始，設定radio群組
     */
     //% blockId="ConsoleInit" block="console init|id(1-10) %group_id"
-    //% blockGap=20 weight=75
+    //% blockGap=1 weight=90
     //% group_id.min=1 group_id.max=10
     export funciton ConsoleInit(group_id: number) {
         radio.setGroup(group_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
     }
-
     /**
     * 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸
     */
     //% blockId="ConsoleExcue" block="console excue"
-    //% blockGap=20 weight=75
+    //% blockGap=20 weight=80
     export function ConsoleExcue(): void {
         if (input.buttonIsPressed(Button.A)) {
             btnA = 1

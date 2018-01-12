@@ -1,0 +1,4 @@
+{
+    "GameRemoteConsole.ConsoleInit|block": "搖桿初始|編號(1-10) %group_id",
+    "GameRemoteConsole.ConsoleExcue|block": "搖桿執行",
+}
