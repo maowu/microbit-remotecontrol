@@ -17,7 +17,7 @@ namespace GameRemoteConsole{
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
 
-    enum idName {
+    enum IdName {
         //% block="[1]"
         R1 = 1,
         //% block="[2]"
@@ -36,10 +36,10 @@ namespace GameRemoteConsole{
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id=idName"
+    //% blockId="ConsoleInit" block="console init|id(1-6) %group_id"
     //% blockGap=20 weight=90
     //% group_id.min=1 group_id.max=6
-    export function ConsoleInit(group_id: idName) {
+    export function ConsoleInit(group_id: IdName) {
         radio.setGroup(group_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
