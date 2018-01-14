@@ -100,7 +100,7 @@ namespace GameRemoteConsole{
         }
         if (input.pinIsPressed(TouchPin.P0)) {
             P0 = 1
-            basic.showString("0")
+            //basic.showString("0")
             radio.sendValue("P0", 1)
         }else {
             P0 = 0
