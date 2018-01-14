@@ -31,6 +31,7 @@ namespace GameRemoteConsole{
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
 
+
     /**
     * 初始，設定radio群組
     */
@@ -49,6 +50,32 @@ namespace GameRemoteConsole{
         radio.setGroup(t_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
+    }
+
+    /**
+    * 改變參數設定
+    */
+    //% blockId="ChangeSetting" block="change setting|color %c_color|head %c_head|body %c_body"
+    //% blockGap=20 weight=90
+    export function ConsoleInit(c_color:number, c_head:number, c_body:number) {
+        cmd_list[0] = c_color
+        cmd_list[1] = c_head
+        cmd_list[2] = c_body
+    }
+
+    /**
+    * 送出換裝資訊
+    */
+    //% blockId="SettingOutput" block="Setting Output"
+    //% blockGap=20 weight=75
+    export function SettingOutput(): void {
+        radio.sendValue("c_color", cmd_list[0])
+        basic.pause(30)
+        radio.sendValue("c_head", cmd_list[1])
+        basic.pause(30)
+        radio.sendValue("c_body", cmd_list[2])
+        basic.pause(30)
+        radio.sendValue("change", 1)
     }
 
     /**
