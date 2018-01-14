@@ -124,6 +124,7 @@ namespace GameRemoteConsole{
                 
             }else {
                 basic.clearScreen()
+                radio.sendValue("btnA", 0)
             }
             lastbtnA = btnA
         }
@@ -132,6 +133,7 @@ namespace GameRemoteConsole{
                 
             }else {
                 basic.clearScreen()
+                radio.sendValue("btnB", 0)
             }
             lastbtnB = btnB
         }
@@ -140,6 +142,7 @@ namespace GameRemoteConsole{
                 
             }else {
                 basic.clearScreen()
+                radio.sendValue("P0", 0)
             }
             lastP0 = P0
         }
@@ -148,6 +151,7 @@ namespace GameRemoteConsole{
                 
             }else {
                 basic.clearScreen()
+                radio.sendValue("P1", 0)
             }
             lastP1 = P1
         }
@@ -156,6 +160,7 @@ namespace GameRemoteConsole{
                 
             }else {
                 basic.clearScreen()
+                radio.sendValue("P2", 0)
             }
             lastP2 = P2
         }
