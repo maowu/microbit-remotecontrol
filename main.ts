@@ -57,7 +57,7 @@ namespace GameRemoteConsole{
     */
     //% blockId="ChangeSetting" block="change setting|color %c_color|head %c_head|body %c_body"
     //% blockGap=20 weight=90
-    export function ChangeSetting(c_color:number, c_head:number, c_body:number) {
+    export function ChangeSetting(c_color: number, c_head: number, c_body: number) {
         cmd_list[0] = c_color
         cmd_list[1] = c_head
         cmd_list[2] = c_body
