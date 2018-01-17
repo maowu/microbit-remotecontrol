@@ -193,10 +193,86 @@ namespace GameRemoteConsole{
     /**
     * Radio接收端，可選擇是否Serial輸出
     */
-    //% blockId="RemoteRadioDatasHandle" block="get radio datas|MsgName %t_name|MsgValue %t_value|SerialOut %isoutput"
+    //% blockId="RemoteRadioDatasHandle" block="SerialOut %isoutput"
     //% blockGap=20 weight=80
-    export function RemoteRadioDatasHandle(msg_name: string, msg_value: number, isoutput: bool): void {
-        let t_output = isoutput
-        serial.writeLine(msg_name + ":" + msg_value)
+    export function RemoteRadioDatasHandle(isoutput: SetYesNo): void {
+        let t_output = 0
+        switch(isoutput) {
+            case SetYesNo.NO: t_output = 0; break;
+            case SetYesNo.YES: t_output = 1; break;
+        }
+        radio.onDataPacketReceived(({ receivedString: msg_name, receivedNumber: msg_value }) => {
+            if (msg_name.compare("btnA") == 0) {
+                if (msg_value > 0) {
+                    basic.showString("A")
+                    btnA = 1
+                } else {
+                    basic.clearScreen()
+                    btnA = 0
+                }
+            } else if (msg_name.compare("btnB") == 0) {
+                if (msg_value > 0) {
+                    basic.showString("B")
+                    btnB = 1
+                } else {
+                    basic.clearScreen()
+                    btnB = 0
+                }
+            } else if (msg_name.compare("P0") == 0) {
+                if (msg_value > 0) {
+                    basic.showString("0")
+                    P0 = 1
+                } else {
+                    basic.clearScreen()
+                    P0 = 0
+                }
+            } else if (msg_name.compare("P1") == 0) {
+                if (msg_value > 0) {
+                    basic.showString("1")
+                    P1 = 1
+                } else {
+                    basic.clearScreen()
+                    P1 = 0
+                }
+            } else if (msg_name.compare("P2") == 0) {
+                if (msg_value > 0) {
+                    basic.showString("2")
+                    P2 = 1
+                } else {
+                    basic.clearScreen()
+                    P2 = 0
+                }
+            } else if (msg_name.compare("move") == 0) {
+                if(t_output==1) {
+                    serial.writeLine("move=" + msg_value)
+                }
+            } else if (msg_name.compare("cmd1") == 0) {
+                if(t_output==1) {
+                    serial.writeLine("cmd1=" + msg_value)
+                }
+            } else if (msg_name.compare("cmd2") == 0) {
+                if(t_output==1) {
+                    serial.writeLine("cmd2=" + msg_value)
+                }
+            } else if (msg_name.compare("cmd3") == 0) {
+                if(t_output==1) {
+                    serial.writeLine("cmd3=" + msg_value)
+                }
+            } else if (msg_name.compare("change") == 0) {
+                if(t_output==1) {
+                    serial.writeLine("cmd3=" + msg_value)
+                }
+            } 
+            if (t_output==1) {
+                if (input.runningTime() - datatimer > 100) {
+                    serial.writeLine("btnA=" + btnA)
+                    serial.writeLine("btnB=" + btnB)
+                    serial.writeLine("P0=" + P0)
+                    serial.writeLine("P1=" + P1)
+                    serial.writeLine("P2=" + P2)
+                    datatimer = input.runningTime()
+                }
+            }
+        })
     }
 }
