@@ -32,13 +32,15 @@ namespace GameRemoteConsole{
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
 
+    let datatimer = 0
+
 
     /**
     * 初始，設定radio群組
     */
     //% blockId="ConsoleInit" block="console init|id %group_id"
     //% blockGap=20 weight=90
-    export function ConsoleInit(group_id: SetGroup) {
+    export function ConsoleInit(group_id: SetGroup): void {
         let t_id = 0
         switch(group_id) {
             case SetGroup.P1: t_id = 1; break;
@@ -58,7 +60,7 @@ namespace GameRemoteConsole{
     */
     //% blockId="ChangeSetting" block="change setting|style %c_style|color %c_color|emoticon %c_emoticon"
     //% blockGap=20 weight=90
-    export function ChangeSetting(c_style: number, c_color: number, c_emoticon: number) {
+    export function ChangeSetting(c_style: number, c_color: number, c_emoticon: number): void {
         cmd_list[0] = c_style
         cmd_list[1] = c_color
         cmd_list[2] = c_emoticon
@@ -165,7 +167,7 @@ namespace GameRemoteConsole{
             }
             lastP2 = P2
         }
-        
+
         if (input.acceleration(Dimension.X) > 500) {
             move = 1
         } else if (input.acceleration(Dimension.X) < -500) {
@@ -180,4 +182,70 @@ namespace GameRemoteConsole{
         }
     }
 
+    /**
+    * Radio接收端，可選擇是否Serial輸出
+    */
+    //% blockId="GetRadioDatas" block="get radio datas| msg_name %t_name| msg_value %t_value Serial out? %isoutput"
+    //% blockGap=20 weight=80
+    export function RadioDatasHandle(msg_name: String, msg_value: number, isoutput: bool): void {
+        if (msg_name.compare("btnA") == 0) {
+            if (value > 0) {
+                basic.showString("A")
+                btnA = 1
+            } else {
+                basic.clearScreen()
+                btnA = 0
+            }
+        } else if (msg_name.compare("btnB") == 0) {
+            if (value > 0) {
+                basic.showString("B")
+                btnB = 1
+            } else {
+                basic.clearScreen()
+                btnB = 0
+            }
+        } else if (msg_name.compare("P0") == 0) {
+            if (value > 0) {
+                basic.showString("0")
+                P0 = 1
+            } else {
+                basic.clearScreen()
+                P0 = 0
+            }
+        } else if (msg_name.compare("P1") == 0) {
+            if (value > 0) {
+                basic.showString("1")
+                P1 = 1
+            } else {
+                basic.clearScreen()
+                P1 = 0
+            }
+        } else if (msg_name.compare("P2") == 0) {
+            if (value > 0) {
+                basic.showString("2")
+                P2 = 1
+            } else {
+                basic.clearScreen()
+                P2 = 0
+            }
+        } else if (msg_name.compare("move") == 0) {
+            serial.writeLine("move=" + value)
+        } else if (msg_name.compare("cmd1") == 0) {
+            serial.writeLine("cmd1=" + value)
+        } else if (msg_name.compare("cmd2") == 0) {
+            serial.writeLine("cmd2=" + value)
+        } else if (msg_name.compare("cmd3") == 0) {
+            serial.writeLine("cmd3=" + value)
+        } else if (msg_name.compare("change") == 0) {
+            serial.writeLine("cmd3=" + value)
+        } 
+        if (input.runningTime() - datatimer > 100) {
+            serial.writeLine("btnA=" + btnA)
+            serial.writeLine("btnB=" + btnB)
+            serial.writeLine("P0=" + P0)
+            serial.writeLine("P1=" + P1)
+            serial.writeLine("P2=" + P2)
+            datatimer = input.runningTime()
+        }
+    }
 }
