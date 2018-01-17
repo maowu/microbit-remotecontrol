@@ -12,13 +12,14 @@ enum SetGroup {
     P5,
     //% block="P6"
     P6
-}
-enum SetBool {
+};
+
+enum SetYesNo {
     //% block="No"
     NO,
     //% block="Yes"
     YES
-}
+};
 
 //% weight=0 color=#3CB371 icon="\uf11b"
 namespace GameRemoteConsole{
@@ -194,11 +195,11 @@ namespace GameRemoteConsole{
     */
     //% blockId="RadioDatasHandle" block="get radio datas| msg_name %t_name| msg_value %t_value| Serial out %isoutput"
     //% blockGap=20 weight=80
-    export function RadioDatasHandle(msg_name: String, msg_value: number, isoutput: SetBool): void {
+    export function RadioDatasHandle(msg_name: String, msg_value: number, isoutput: SetYesNo): void {
         let t_output = 0
         switch(isoutput) {
-            case SetBool.NO: t_output = 0; break;
-            case SetBool.YED: t_output = 1; break;
+            case SetYesNo.NO: t_output = 0; break;
+            case SetYesNo.YES: t_output = 1; break;
         }
         if (msg_name.compare("btnA") == 0) {
             if (msg_value > 0) {
