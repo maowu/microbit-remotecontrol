@@ -195,7 +195,7 @@ namespace GameRemoteConsole{
     */
     //% blockId="RemoteRadioDatasHandle" block="get radio datas|MsgName %t_name|MsgValue %t_value|SerialOut %isoutput"
     //% blockGap=20 weight=80
-    export function RemoteRadioDatasHandle(msg_name: String, msg_value: number, isoutput: number): void {
+    export function RemoteRadioDatasHandle(msg_name: string, msg_value: number, isoutput: number): void {
         let t_output = isoutput
         serial.writeLine(msg_name + ":" + msg_value)
     }
