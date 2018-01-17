@@ -27,6 +27,7 @@ namespace GameRemoteConsole{
     let lastP1 = 0
     let lastP2 = 0
     let imu_tiemr = 0
+    let move = 0
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
@@ -55,12 +56,12 @@ namespace GameRemoteConsole{
     /**
     * 改變參數設定
     */
-    //% blockId="ChangeSetting" block="change setting|color %c_color|head %c_head|body %c_body"
+    //% blockId="ChangeSetting" block="change setting|style %c_style|color %c_color|emoticon %c_emoticon"
     //% blockGap=20 weight=90
-    export function ChangeSetting(c_color: number, c_head: number, c_body: number) {
-        cmd_list[0] = c_color
-        cmd_list[1] = c_head
-        cmd_list[2] = c_body
+    export function ChangeSetting(c_style: number, c_color: number, c_emoticon: number) {
+        cmd_list[0] = c_style
+        cmd_list[1] = c_color
+        cmd_list[2] = c_emoticon
     }
 
     /**
@@ -69,11 +70,11 @@ namespace GameRemoteConsole{
     //% blockId="SettingOutput" block="Setting Output"
     //% blockGap=20 weight=75
     export function SettingOutput(): void {
-        radio.sendValue("c_color", cmd_list[0])
+        radio.sendValue("cmd1", cmd_list[0])
         basic.pause(30)
-        radio.sendValue("c_head", cmd_list[1])
+        radio.sendValue("cmd2", cmd_list[1])
         basic.pause(30)
-        radio.sendValue("c_body", cmd_list[2])
+        radio.sendValue("cmd3", cmd_list[2])
         basic.pause(30)
         radio.sendValue("change", 1)
     }
@@ -164,9 +165,17 @@ namespace GameRemoteConsole{
             }
             lastP2 = P2
         }
+        
+        if (input.acceleration(Dimension.X) > 500) {
+            move = 1
+        } else if (input.acceleration(Dimension.X) < -500) {
+            move = -1
+        } else {
+            move =0
+        }
+
         if(input.runningTime()-imu_tiemr > 100) {
-            radio.sendValue("pitch", input.rotation(Rotation.Pitch))
-            radio.sendValue("roll", input.rotation(Rotation.Roll))
+            radio.sendValue("move", move)
             imu_tiemr = input.runningTime()
         }
     }
