@@ -207,48 +207,46 @@ namespace GameRemoteConsole{
             // -- start check message content --- //
             if (msg_name.compare("btnA") == 0) {
                 if (msg_value > 0) {
-                    basic.showString("A")
+                    //basic.showString("A")
                     btnA = 1
                 } else {
-                    basic.clearScreen()
+                    //basic.clearScreen()
                     btnA = 0
                 }
             } else if (msg_name.compare("btnB") == 0) {
                 if (msg_value > 0) {
-                    basic.showString("B")
+                    //basic.showString("B")
                     btnB = 1
                 } else {
-                    basic.clearScreen()
+                    //basic.clearScreen()
                     btnB = 0
                 }
             } else if (msg_name.compare("P0") == 0) {
                 if (msg_value > 0) {
-                    basic.showString("0")
+                    //basic.showString("0")
                     P0 = 1
                 } else {
-                    basic.clearScreen()
+                    //basic.clearScreen()
                     P0 = 0
                 }
             } else if (msg_name.compare("P1") == 0) {
                 if (msg_value > 0) {
-                    basic.showString("1")
+                    //basic.showString("1")
                     P1 = 1
                 } else {
-                    basic.clearScreen()
+                    //basic.clearScreen()
                     P1 = 0
                 }
             } else if (msg_name.compare("P2") == 0) {
                 if (msg_value > 0) {
-                    basic.showString("2")
+                    //basic.showString("2")
                     P2 = 1
                 } else {
-                    basic.clearScreen()
+                    //basic.clearScreen()
                     P2 = 0
                 }
             } else if (msg_name.compare("move") == 0) {
-                if(t_output==1) {
-                    serial.writeLine("move=" + msg_value)
-                }
+                move = msg_value
             } else if (msg_name.compare("cmd1") == 0) {
                 if(t_output==1) {
                     serial.writeLine("cmd1=" + msg_value)
@@ -267,15 +265,62 @@ namespace GameRemoteConsole{
                 }
             }
 
+            if (btnA!=lastbtnA) {
+                if(btnA > 0) {
+                    basic.showString("A")
+                }else {
+                    basic.clearScreen()
+                    radio.sendValue("btnA", 0)
+                }
+                serial.writeLine("btnA=" + btnA)
+                lastbtnA = btnA
+            }
+            if (btnB!=lastbtnB) {
+                if(btnB > 0) {
+                    basic.showString("B")
+                }else {
+                    basic.clearScreen()
+                    radio.sendValue("btnB", 0)
+                }
+                serial.writeLine("btnB=" + btnB)
+                lastbtnB = btnB
+            }
+            if (P0!=lastP0) {
+                if(P0 > 0) {
+                    basic.showString("0")
+                }else {
+                    basic.clearScreen()
+                    radio.sendValue("P0", 0)
+                }
+                serial.writeLine("P0=" + P0)
+                lastP0 = P0
+            }
+            if (P1!=lastP1) {
+                if(P1 > 0) {
+                    basic.showString("1")
+                }else {
+                    basic.clearScreen()
+                    radio.sendValue("P1", 0)
+                }
+                serial.writeLine("P1=" + P1)
+                lastP1 = P1
+            }
+            if (P2!=lastP2) {
+                if(P2 > 0) {
+                    basic.showString("2")
+                }else {
+                    basic.clearScreen()
+                    radio.sendValue("P2", 0)
+                }
+                serial.writeLine("P2=" + P2)
+                lastP2 = P2
+            }
+
             // -- end check message content --- //
 
             if (t_output==1) {
                 if (input.runningTime() - datatimer > 100) {
-                    serial.writeLine("btnA=" + btnA)
-                    serial.writeLine("btnB=" + btnB)
-                    serial.writeLine("P0=" + P0)
-                    serial.writeLine("P1=" + P1)
-                    serial.writeLine("P2=" + P2)
+                    serial.writeline("move=" + move)  
                     datatimer = input.runningTime()
                 }
             }
