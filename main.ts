@@ -197,8 +197,8 @@ namespace GameRemoteConsole{
     //% blockGap=20 weight=80
     export function RemoteRadioDatasHandle(isoutput: bool): void {
         //let t_output = isoutput
-        
-        if(isoutput) {
+        let t_output = 0 
+        if(isoutput>0) {
             t_output = 1
         }else {
             t_outpu = 0
