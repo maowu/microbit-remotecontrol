@@ -196,13 +196,8 @@ namespace GameRemoteConsole{
     //% blockId="RemoteRadioDatasHandle" block="get datas from remote|SerialOut %isoutput"
     //% blockGap=20 weight=80
     export function RemoteRadioDatasHandle(isoutput: number): void {
-        //let t_output = isoutput
-        let t_output = 0 
-        if(isoutput>0) {
-            t_output = 1
-        }else {
-            t_outpu = 0
-        }
+        let t_output = isoutput
+        
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
             //serial.writeLine("revStr=" + msg_name + " - " + msg_value)
 
