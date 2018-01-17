@@ -192,7 +192,7 @@ namespace GameRemoteConsole{
     /**
     * Radio接收端，可選擇是否Serial輸出
     */
-    //% blockId="GetRadioDatas" block="get radio datas| msg_name %t_name| msg_value %t_value| Serial out %isoutput"
+    //% blockId="RadioDatasHandle" block="get radio datas| msg_name %t_name| msg_value %t_value| Serial out %isoutput"
     //% blockGap=20 weight=80
     export function RadioDatasHandle(msg_name: String, msg_value: number, isoutput: YesNo): void {
         let t_output = 0
@@ -261,13 +261,15 @@ namespace GameRemoteConsole{
                 serial.writeLine("cmd3=" + msg_value)
             }
         } 
-        if (input.runningTime() - datatimer > 100 && t_output==1) {
-            serial.writeLine("btnA=" + btnA)
-            serial.writeLine("btnB=" + btnB)
-            serial.writeLine("P0=" + P0)
-            serial.writeLine("P1=" + P1)
-            serial.writeLine("P2=" + P2)
-            datatimer = input.runningTime()
+        if (t_output==1) {
+            if (input.runningTime() - datatimer > 100) {
+                serial.writeLine("btnA=" + btnA)
+                serial.writeLine("btnB=" + btnB)
+                serial.writeLine("P0=" + P0)
+                serial.writeLine("P1=" + P1)
+                serial.writeLine("P2=" + P2)
+                datatimer = input.runningTime()
+            }
         }
     }
 }
