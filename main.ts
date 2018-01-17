@@ -13,6 +13,12 @@ enum SetGroup {
     //% block="P6"
     P6
 }
+enum YesNo {
+    //% block="No"
+    No,
+    //% block="Yes"
+    Yes
+}
 
 //% weight=0 color=#3CB371 icon="\uf11b"
 namespace GameRemoteConsole{
@@ -54,6 +60,7 @@ namespace GameRemoteConsole{
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
     }
+
 
     /**
     * 改變參數設定
@@ -187,7 +194,12 @@ namespace GameRemoteConsole{
     */
     //% blockId="GetRadioDatas" block="get radio datas| msg_name %t_name| msg_value %t_value Serial out? %isoutput"
     //% blockGap=20 weight=80
-    export function RadioDatasHandle(msg_name: String, msg_value: number, isoutput: bool): void {
+    export function RadioDatasHandle(msg_name: String, msg_value: number, isoutput: YesNo): void {
+        let t_output = 0
+        switch(isoutput) {
+            case No: t_output = 0; break;
+            case Yes: t_output = 1; break;
+        }
         if (msg_name.compare("btnA") == 0) {
             if (msg_value > 0) {
                 basic.showString("A")
@@ -229,17 +241,27 @@ namespace GameRemoteConsole{
                 P2 = 0
             }
         } else if (msg_name.compare("move") == 0) {
-            serial.writeLine("move=" + msg_value)
+            if(t_output==1) {
+                serial.writeLine("move=" + msg_value)
+            }
         } else if (msg_name.compare("cmd1") == 0) {
-            serial.writeLine("cmd1=" + msg_value)
+            if(t_output==1) {
+                serial.writeLine("cmd1=" + msg_value)
+            }
         } else if (msg_name.compare("cmd2") == 0) {
-            serial.writeLine("cmd2=" + msg_value)
+            if(t_output==1) {
+                serial.writeLine("cmd2=" + msg_value)
+            }
         } else if (msg_name.compare("cmd3") == 0) {
-            serial.writeLine("cmd3=" + msg_value)
+            if(t_output==1) {
+                serial.writeLine("cmd3=" + msg_value)
+            }
         } else if (msg_name.compare("change") == 0) {
-            serial.writeLine("cmd3=" + msg_value)
+            if(t_output==1) {
+                serial.writeLine("cmd3=" + msg_value)
+            }
         } 
-        if (input.runningTime() - datatimer > 100) {
+        if (input.runningTime() - datatimer > 100 && t_output==1) {
             serial.writeLine("btnA=" + btnA)
             serial.writeLine("btnB=" + btnB)
             serial.writeLine("P0=" + P0)
