@@ -195,12 +195,14 @@ namespace GameRemoteConsole{
     */
     //% blockId="RemoteRadioDatasHandle" block="get radio datas|MsgName %t_name|MsgValue %t_value|SerialOut %isoutput"
     //% blockGap=20 weight=80
-    export function RemoteRadioDatasHandle(msg_name: String, msg_value: number, isoutput: SetYesNo): void {
-        let t_output = 0
+    export function RemoteRadioDatasHandle(msg_name: String, msg_value: number, isoutput: number): void {
+        let t_output = isoutput
+        /*
         switch(isoutput) {
             case SetYesNo.NO: t_output = 0; break;
             case SetYesNo.YES: t_output = 1; break;
         }
+        */
         if (msg_name.compare("btnA") == 0) {
             if (msg_value > 0) {
                 basic.showString("A")
