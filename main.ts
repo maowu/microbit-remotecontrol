@@ -198,7 +198,7 @@ namespace GameRemoteConsole{
     export function RemoteRadioDatasHandle(isoutput: number): void {
         let t_output = isoutput
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
-            serial.writeLine(msg_name + " : " + msg_value)
+            serial.writeLine("revStr=" + msg_name + " : " + msg_value)
         })
     }
 }
