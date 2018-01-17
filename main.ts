@@ -193,9 +193,9 @@ namespace GameRemoteConsole{
     /**
     * Radio接收端，可選擇是否Serial輸出
     */
-    //% blockId="RadioDatasHandle" block="get radio datas| msg_name %t_name| msg_value %t_value| Serial out %isoutput"
+    //% blockId="RemoteRadioDatasHandle" block="get radio datas| msg_name %t_name| msg_value %t_value| Serial out %isoutput"
     //% blockGap=20 weight=80
-    export function RadioDatasHandle(msg_name: String, msg_value: number, isoutput: SetYesNo): void {
+    export function RemoteRadioDatasHandle(msg_name: String, msg_value: number, isoutput: SetYesNo): void {
         let t_output = 0
         switch(isoutput) {
             case SetYesNo.NO: t_output = 0; break;
