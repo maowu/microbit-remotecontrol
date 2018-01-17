@@ -199,6 +199,16 @@ namespace GameRemoteConsole{
         let t_output = isoutput
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
             serial.writeLine("revStr=" + msg_name + " - " + msg_value)
+            if (t_output==1) {
+                if (input.runningTime() - datatimer > 100) {
+                    serial.writeLine("btnA=" + btnA)
+                    serial.writeLine("btnB=" + btnB)
+                    serial.writeLine("P0=" + P0)
+                    serial.writeLine("P1=" + P1)
+                    serial.writeLine("P2=" + P2)
+                    datatimer = input.runningTime()
+                }
+            }
         })
     }
 }
