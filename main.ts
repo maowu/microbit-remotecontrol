@@ -246,7 +246,13 @@ namespace GameRemoteConsole{
                     P2 = 0
                 }
             } else if (msg_name.compare("move") == 0) {
-                move = msg_value
+                if (msg_value > 0) {
+                    move = 1
+                } else if(msg_value < 0){
+                    move = -1
+                } else {
+                    move = 0
+                }
             } else if (msg_name.compare("cmd1") == 0) {
                 if(t_output==1) {
                     serial.writeLine("cmd1=" + msg_value)
