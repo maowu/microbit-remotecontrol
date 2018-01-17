@@ -207,42 +207,32 @@ namespace GameRemoteConsole{
             // -- start check message content --- //
             if (msg_name.compare("btnA") == 0) {
                 if (msg_value > 0) {
-                    //basic.showString("A")
                     btnA = 1
                 } else {
-                    //basic.clearScreen()
                     btnA = 0
                 }
             } else if (msg_name.compare("btnB") == 0) {
                 if (msg_value > 0) {
-                    //basic.showString("B")
                     btnB = 1
                 } else {
-                    //basic.clearScreen()
                     btnB = 0
                 }
             } else if (msg_name.compare("P0") == 0) {
                 if (msg_value > 0) {
-                    //basic.showString("0")
                     P0 = 1
                 } else {
-                    //basic.clearScreen()
                     P0 = 0
                 }
             } else if (msg_name.compare("P1") == 0) {
                 if (msg_value > 0) {
-                    //basic.showString("1")
                     P1 = 1
                 } else {
-                    //basic.clearScreen()
                     P1 = 0
                 }
             } else if (msg_name.compare("P2") == 0) {
                 if (msg_value > 0) {
-                    //basic.showString("2")
                     P2 = 1
                 } else {
-                    //basic.clearScreen()
                     P2 = 0
                 }
             } else if (msg_name.compare("move") == 0) {
@@ -276,7 +266,6 @@ namespace GameRemoteConsole{
                     basic.showString("A")
                 }else {
                     basic.clearScreen()
-                    radio.sendValue("btnA", 0)
                 }
                 serial.writeLine("btnA=" + btnA)
                 lastbtnA = btnA
@@ -286,7 +275,6 @@ namespace GameRemoteConsole{
                     basic.showString("B")
                 }else {
                     basic.clearScreen()
-                    radio.sendValue("btnB", 0)
                 }
                 serial.writeLine("btnB=" + btnB)
                 lastbtnB = btnB
@@ -296,7 +284,6 @@ namespace GameRemoteConsole{
                     basic.showString("0")
                 }else {
                     basic.clearScreen()
-                    radio.sendValue("P0", 0)
                 }
                 serial.writeLine("P0=" + P0)
                 lastP0 = P0
@@ -306,7 +293,6 @@ namespace GameRemoteConsole{
                     basic.showString("1")
                 }else {
                     basic.clearScreen()
-                    radio.sendValue("P1", 0)
                 }
                 serial.writeLine("P1=" + P1)
                 lastP1 = P1
@@ -316,7 +302,6 @@ namespace GameRemoteConsole{
                     basic.showString("2")
                 }else {
                     basic.clearScreen()
-                    radio.sendValue("P2", 0)
                 }
                 serial.writeLine("P2=" + P2)
                 lastP2 = P2
@@ -326,7 +311,7 @@ namespace GameRemoteConsole{
 
             if (t_output==1) {
                 if (input.runningTime() - datatimer > 100) {
-                    serial.writeline("move=" + move)  
+                    serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
                 }
             }
