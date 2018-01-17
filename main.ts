@@ -197,8 +197,8 @@ namespace GameRemoteConsole{
     export function RadioDatasHandle(msg_name: String, msg_value: number, isoutput: YesNo): void {
         let t_output = 0
         switch(isoutput) {
-            case No: t_output = 0; break;
-            case Yes: t_output = 1; break;
+            case YesNo.No: t_output = 0; break;
+            case YesNo.Yes: t_output = 1; break;
         }
         if (msg_name.compare("btnA") == 0) {
             if (msg_value > 0) {
