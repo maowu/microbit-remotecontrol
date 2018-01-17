@@ -195,7 +195,7 @@ namespace GameRemoteConsole{
     */
     //% blockId="RemoteRadioDatasHandle" block="get datas from remote|SerialOut %isoutput"
     //% blockGap=20 weight=80
-    export function RemoteRadioDatasHandle(isoutput: number): void {
+    export function RemoteRadioDatasHandle(isoutput: number=0): void {
 
     }
 }
