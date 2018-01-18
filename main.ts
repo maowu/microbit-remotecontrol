@@ -215,7 +215,7 @@ namespace GameRemoteConsole{
                 }
                 serial.writeLine("btnA=" + btnA)
                 lastbtnA = btnA
-                resetTimer = intput.runningTime()
+                resetTimer = input.runningTime()
             } else if (msg_name.compare("btnB") == 0) {
                 if (msg_value > 0) {
                     btnB = 1
@@ -226,7 +226,7 @@ namespace GameRemoteConsole{
                 }
                 serial.writeLine("btnB=" + btnB)
                 lastbtnB = btnB
-                resetTimer = intput.runningTime()
+                resetTimer = input.runningTime()
             } else if (msg_name.compare("P0") == 0) {
                 if (msg_value > 0) {
                     P0 = 1
@@ -237,7 +237,7 @@ namespace GameRemoteConsole{
                 }
                 serial.writeLine("P0=" + P0)
                 lastP0 = P0
-                resetTimer = intput.runningTime()
+                resetTimer = input.runningTime()
             } else if (msg_name.compare("P1") == 0) {
                 if (msg_value > 0) {
                     P1 = 1
@@ -248,7 +248,7 @@ namespace GameRemoteConsole{
                 }
                 serial.writeLine("P1=" + P1)
                 lastP1 = P1
-                resetTimer = intput.runningTime()
+                resetTimer = input.runningTime()
             } else if (msg_name.compare("P2") == 0) {
                 if (msg_value > 0) {
                     P2 = 1
@@ -259,7 +259,7 @@ namespace GameRemoteConsole{
                 }
                 serial.writeLine("P2=" + P2)
                 lastP2 = P2
-                resetTimer = intput.runningTime()
+                resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
                 if (msg_value > 0) {
                     move = 1
@@ -298,9 +298,9 @@ namespace GameRemoteConsole{
                 }
             }
 
-            if (intput.runningTime() - resetTimer > 120000) {
+            if (input.runningTime() - resetTimer > 120000) {
                 control.reset()
-                resetTimer = intput.runningTime()
+                resetTimer = input.runningTime()
             }
         })
     }
