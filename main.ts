@@ -284,7 +284,7 @@ namespace GameRemoteConsole{
                 if(t_output==1) {
                     serial.writeLine("cmd3=" + msg_value)
                 }
-                resetTimer = intpu.runningTime()
+                resetTimer = input.runningTime()
             }
 
             
