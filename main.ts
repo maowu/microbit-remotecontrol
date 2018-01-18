@@ -304,4 +304,29 @@ namespace GameRemoteConsole{
             }
         })
     }
+
+    /**
+    * Serial接收端，負責執行由Unity傳來的訊息
+    */
+    //% blockId="SerialDatasHandle" block="get datas from serial|RadioOut %isoutput"
+    //% blockGap=20 weight=80
+    export function SerialDatasHandle(isoutput: SetYesNo=SetYesNo.NO): void {
+        let t_output = 0
+        switch(isoutput) {
+            case SetYesNo.NO: t_output = 0; break;
+            case SetYesNo.YES: t_output = 1; break;
+        }
+
+        let tmpstr = ""
+        serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+            tmpstr = serial.readUntil('\r')
+            if (tmpstr.compare("A") == 0) {
+                serial.writeLine("You give me: A")
+            } else if (tmpstr.compare("B") == 0) {
+                serial.writeLine("You give me: B")
+            } else {
+                serial.writeLine("You give me: " + tmpstr + " :" +     tmpstr.length)
+            }
+        })
+    }
 }
