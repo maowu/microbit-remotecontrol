@@ -35,6 +35,7 @@ namespace GameRemoteConsole{
     let lastP2 = 0
     let imu_tiemr = 0
     let move = 0
+    let resetTimer = 0;
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
@@ -176,9 +177,9 @@ namespace GameRemoteConsole{
             lastP2 = P2
         }
 
-        if (input.acceleration(Dimension.X) > 500) {
+        if (input.acceleration(Dimension.X) > 300) {
             move = 1
-        } else if (input.acceleration(Dimension.X) < -500) {
+        } else if (input.acceleration(Dimension.X) < -300) {
             move = -1
         } else {
             move =0
@@ -202,39 +203,63 @@ namespace GameRemoteConsole{
             case SetYesNo.YES: t_output = 1; break;
         }
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
-            //serial.writeLine("revStr=" + msg_name + " - " + msg_value)
 
             // -- start check message content --- //
             if (msg_name.compare("btnA") == 0) {
                 if (msg_value > 0) {
                     btnA = 1
+                    basic.showString("A")
                 } else {
                     btnA = 0
+                    basic.clearScreen()
                 }
+                serial.writeLine("btnA=" + btnA)
+                lastbtnA = btnA
+                resetTimer = intpu.runningTime()
             } else if (msg_name.compare("btnB") == 0) {
                 if (msg_value > 0) {
                     btnB = 1
+                    basic.showString("B")
                 } else {
                     btnB = 0
+                    basic.clearScreen()
                 }
+                serial.writeLine("btnB=" + btnB)
+                lastbtnB = btnB
+                resetTimer = intpu.runningTime()
             } else if (msg_name.compare("P0") == 0) {
                 if (msg_value > 0) {
                     P0 = 1
+                    basic.showString("0")
                 } else {
                     P0 = 0
+                    basic.clearScreen()
                 }
+                serial.writeLine("P0=" + P0)
+                lastP0 = P0
+                resetTimer = intpu.runningTime()
             } else if (msg_name.compare("P1") == 0) {
                 if (msg_value > 0) {
                     P1 = 1
+                    basic.showString("1")
                 } else {
                     P1 = 0
+                    basic.clearScreen()
                 }
+                serial.writeLine("P1=" + P1)
+                lastP1 = P1
+                resetTimer = intpu.runningTime()
             } else if (msg_name.compare("P2") == 0) {
                 if (msg_value > 0) {
                     P2 = 1
+                    asic.showString("2")
                 } else {
                     P2 = 0
+                    basic.clearScreen()
                 }
+                serial.writeLine("P2=" + P2)
+                lastP2 = P2
+                resetTimer = intpu.runningTime()
             } else if (msg_name.compare("move") == 0) {
                 if (msg_value > 0) {
                     move = 1
@@ -259,53 +284,10 @@ namespace GameRemoteConsole{
                 if(t_output==1) {
                     serial.writeLine("cmd3=" + msg_value)
                 }
+                resetTimer = intpu.runningTime()
             }
 
-            if (btnA!=lastbtnA) {
-                if(btnA > 0) {
-                    basic.showString("A")
-                }else {
-                    basic.clearScreen()
-                }
-                serial.writeLine("btnA=" + btnA)
-                lastbtnA = btnA
-            }
-            if (btnB!=lastbtnB) {
-                if(btnB > 0) {
-                    basic.showString("B")
-                }else {
-                    basic.clearScreen()
-                }
-                serial.writeLine("btnB=" + btnB)
-                lastbtnB = btnB
-            }
-            if (P0!=lastP0) {
-                if(P0 > 0) {
-                    basic.showString("0")
-                }else {
-                    basic.clearScreen()
-                }
-                serial.writeLine("P0=" + P0)
-                lastP0 = P0
-            }
-            if (P1!=lastP1) {
-                if(P1 > 0) {
-                    basic.showString("1")
-                }else {
-                    basic.clearScreen()
-                }
-                serial.writeLine("P1=" + P1)
-                lastP1 = P1
-            }
-            if (P2!=lastP2) {
-                if(P2 > 0) {
-                    basic.showString("2")
-                }else {
-                    basic.clearScreen()
-                }
-                serial.writeLine("P2=" + P2)
-                lastP2 = P2
-            }
+            
 
             // -- end check message content --- //
 
@@ -314,6 +296,11 @@ namespace GameRemoteConsole{
                     serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
                 }
+            }
+
+            if (intpu.runningTime() - resetTimer > 120000) {
+                control.reset()
+                resetTimer = intpu.runningTime()
             }
         })
     }
