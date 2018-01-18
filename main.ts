@@ -252,7 +252,7 @@ namespace GameRemoteConsole{
             } else if (msg_name.compare("P2") == 0) {
                 if (msg_value > 0) {
                     P2 = 1
-                    asic.showString("2")
+                    basic.showString("2")
                 } else {
                     P2 = 0
                     basic.clearScreen()
