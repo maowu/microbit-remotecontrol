@@ -353,7 +353,7 @@ namespace GameRemoteConsole{
     /**
     * Serial接收端，負責執行由Unity傳來的訊息
     */
-    //% blockId="SerialDatasHandle" block="get datas from serial|RadioOut %isoutput"
+    //% blockId="SerialDatasHandle" block="get datas from serial|#RadioOut %isoutput"
     //% blockGap=20 weight=80
     export function SerialDatasHandle(isoutput: SetYesNo=SetYesNo.NO): void {
         let t_output = 0
@@ -363,28 +363,45 @@ namespace GameRemoteConsole{
         }
 
         let tmpstr = ""
+        let r_msgout = 0;
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
             tmpstr = serial.readUntil('\n')
             if (tmpstr.compare("#0") == 0) {
                 power_list[0].showImage(0)
-                serial.writeLine("You give me: [0]")
+                r_msgout = 0;
+                
+                //serial.writeLine("You give me: [0]")
             } else if (tmpstr.compare("#1") == 0) {
                 power_list[1].showImage(0)
-                serial.writeLine("You give me: [1]")
+                r_msgout = 1;
+
+                //serial.writeLine("You give me: [1]")
             } else if (tmpstr.compare("#2") == 0) {
                 power_list[2].showImage(0)
-                serial.writeLine("You give me: [2]")
+                r_msgout = 2;
+
+                //serial.writeLine("You give me: [2]")
             } else if (tmpstr.compare("#3") == 0) {
                 power_list[3].showImage(0)
-                serial.writeLine("You give me: [3]")
+                r_msgout = 3;
+
+                //serial.writeLine("You give me: [3]")
             } else if (tmpstr.compare("#4") == 0) {
                 power_list[4].showImage(0)
-                serial.writeLine("You give me: [4]")
+                r_msgout = 4;
+
+                //serial.writeLine("You give me: [4]")
             } else if (tmpstr.compare("#5") == 0) {
                 power_list[5].showImage(0)
-                serial.writeLine("You give me: [5]")
+                r_msgout = 5;
+
+                //serial.writeLine("You give me: [5]")
             } else {
-                serial.writeLine("other string: " + tmpstr + " :" +     tmpstr.length)
+                //serial.writeLine("other string: " + tmpstr + " :" +     tmpstr.length)
+            }
+
+            if(t_output == 1) {
+                radio.sendValue("power", r_msgout)
             }
         })
     }
