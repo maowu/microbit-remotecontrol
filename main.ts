@@ -110,7 +110,7 @@ namespace GameRemoteConsole{
 
 
     /**
-    * 改變參數設定
+    * [RemoteControl] 改變參數設定
     */
     //% blockId="ChangeSetting" block="change setting|#style %c_style|#color %c_color|#emoticon %c_emoticon"
     //% blockGap=20 weight=90
@@ -121,7 +121,7 @@ namespace GameRemoteConsole{
     }
 
     /**
-    * 送出換裝資訊
+    * [RemoteControl] 送出換裝資訊
     */
     //% blockId="SettingOutput" block="Setting Output"
     //% blockGap=20 weight=75
@@ -136,7 +136,7 @@ namespace GameRemoteConsole{
     }
 
     /**
-    * 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸，並接收由配對裝置傳來的radio訊號
+    * [RemoteControl] 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸，並接收由配對裝置傳來的radio訊號
     */
     //% blockId="ConsoleExcue" block="console excue"
     //% blockGap=20 weight=80
@@ -246,15 +246,20 @@ namespace GameRemoteConsole{
     }
 
     /**
-    * Radio接收端，可選擇是否Serial輸出
+    * [MsgHnadle] Radio接收端，可選擇是否Serial輸出
     */
-    //% blockId="RemoteRadioDatasHandle" block="get datas from remote|#SerialOut %isoutput"
+    //% blockId="RemoteRadioDatasHandle" block="get datas from remote|#SerialOut %isoutput|#ShowLED %isLED"
     //% blockGap=20 weight=80
-    export function RemoteRadioDatasHandle(isoutput: SetYesNo=SetYesNo.NO): void {
+    export function RemoteRadioDatasHandle(isoutput: SetYesNo=SetYesNo.NO, isLED: SetYesNo=SetYesNo.NO): void {
         let t_output = 0
+        let t_led = 0
         switch(isoutput) {
             case SetYesNo.NO: t_output = 0; break;
             case SetYesNo.YES: t_output = 1; break;
+        }
+        switch(isLED) {
+            case SetYesNo.NO: t_led = 0; break;
+            case SetYesNo.YES: t_led = 1; break;
         }
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
 
@@ -262,10 +267,14 @@ namespace GameRemoteConsole{
             if (msg_name.compare("btnA") == 0) {
                 if (msg_value > 0) {
                     btnA = 1
-                    basic.showString("A")
+                    if(t_led) {
+                        basic.showString("A");
+                    }
                 } else {
                     btnA = 0
-                    basic.clearScreen()
+                    if(t_led) {
+                        basic.clearScreen();
+                    }
                 }
                 serial.writeLine("btnA=" + btnA)
                 lastbtnA = btnA
@@ -273,10 +282,14 @@ namespace GameRemoteConsole{
             } else if (msg_name.compare("btnB") == 0) {
                 if (msg_value > 0) {
                     btnB = 1
-                    basic.showString("B")
+                    if(t_led) {
+                        basic.showString("B");
+                    }
                 } else {
                     btnB = 0
-                    basic.clearScreen()
+                    if(t_led) {
+                        basic.clearScreen();
+                    }
                 }
                 serial.writeLine("btnB=" + btnB)
                 lastbtnB = btnB
@@ -284,10 +297,14 @@ namespace GameRemoteConsole{
             } else if (msg_name.compare("P0") == 0) {
                 if (msg_value > 0) {
                     P0 = 1
-                    basic.showString("0")
+                    if(t_led) {
+                        basic.showString("0");
+                    }
                 } else {
                     P0 = 0
-                    basic.clearScreen()
+                    if(t_led) {
+                        basic.clearScreen();
+                    }
                 }
                 serial.writeLine("P0=" + P0)
                 lastP0 = P0
@@ -295,10 +312,14 @@ namespace GameRemoteConsole{
             } else if (msg_name.compare("P1") == 0) {
                 if (msg_value > 0) {
                     P1 = 1
-                    basic.showString("1")
+                    if(t_led) {
+                        basic.showString("1");
+                    }
                 } else {
                     P1 = 0
-                    basic.clearScreen()
+                    if(t_led) {
+                        basic.clearScreen();
+                    }
                 }
                 serial.writeLine("P1=" + P1)
                 lastP1 = P1
@@ -307,9 +328,14 @@ namespace GameRemoteConsole{
                 if (msg_value > 0) {
                     P2 = 1
                     basic.showString("2")
+                    if(t_led) {
+                        basic.showString("2");
+                    }
                 } else {
                     P2 = 0
-                    basic.clearScreen()
+                    if(t_led) {
+                        basic.clearScreen();
+                    }
                 }
                 serial.writeLine("P2=" + P2)
                 lastP2 = P2
@@ -352,15 +378,17 @@ namespace GameRemoteConsole{
                 }
             }
 
-            if (input.runningTime() - resetTimer > 120000) {
-                control.reset()
-                resetTimer = input.runningTime()
-            }
+            
         })
+
+        if (input.runningTime() - resetTimer > 120000) {
+            control.reset()
+            resetTimer = input.runningTime()
+        }
     }
 
     /**
-    * Serial接收端，負責執行由Unity傳來的訊息
+    * [MsgHnadle] Serial接收端，負責執行由Unity傳來的訊息，再丟回給remote console
     */
     //% blockId="SerialDatasHandle" block="get datas from serial|#RadioOut %isoutput"
     //% blockGap=20 weight=80
