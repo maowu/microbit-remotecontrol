@@ -364,7 +364,7 @@ namespace GameRemoteConsole{
 
         let tmpstr = ""
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-            tmpstr = serial.readUntil('\r')
+            tmpstr = serial.readUntil('\n')
             if (tmpstr.compare("#0") == 0) {
                 power_list[0].showImage(0)
                 serial.writeLine("You give me: [0]")
