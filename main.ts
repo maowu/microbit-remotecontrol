@@ -239,7 +239,7 @@ namespace GameRemoteConsole{
             //--- while we get the power-value from pair device (from Unity game-> serial-master-micro:bit) ---//
             if (msg_name.compare("power") == 0) {
                 if(msg_value >= 0 && msg_value <= 5) {
-                    power_list[0].showImage(msg_value)
+                    power_list[msg_value].showImage(0)
                 }
             }
         })
