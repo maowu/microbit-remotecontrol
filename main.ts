@@ -272,9 +272,6 @@ namespace GameRemoteConsole{
                     }
                 } else {
                     btnA = 0
-                    if(t_led) {
-                        basic.clearScreen();
-                    }
                 }
                 serial.writeLine("btnA=" + btnA)
                 lastbtnA = btnA
@@ -287,9 +284,6 @@ namespace GameRemoteConsole{
                     }
                 } else {
                     btnB = 0
-                    if(t_led) {
-                        basic.clearScreen();
-                    }
                 }
                 serial.writeLine("btnB=" + btnB)
                 lastbtnB = btnB
@@ -302,9 +296,6 @@ namespace GameRemoteConsole{
                     }
                 } else {
                     P0 = 0
-                    if(t_led) {
-                        basic.clearScreen();
-                    }
                 }
                 serial.writeLine("P0=" + P0)
                 lastP0 = P0
@@ -317,9 +308,6 @@ namespace GameRemoteConsole{
                     }
                 } else {
                     P1 = 0
-                    if(t_led) {
-                        basic.clearScreen();
-                    }
                 }
                 serial.writeLine("P1=" + P1)
                 lastP1 = P1
@@ -333,9 +321,6 @@ namespace GameRemoteConsole{
                     }
                 } else {
                     P2 = 0
-                    if(t_led) {
-                        basic.clearScreen();
-                    }
                 }
                 serial.writeLine("P2=" + P2)
                 lastP2 = P2
