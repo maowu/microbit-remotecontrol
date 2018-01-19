@@ -91,7 +91,7 @@ namespace GameRemoteConsole{
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|#id %group_id"
+    //% blockId="ConsoleInit" block="console init|id %group_id"
     //% blockGap=20 weight=90
     export function ConsoleInit(group_id: SetGroup): void {
         let t_id = 0
@@ -112,7 +112,7 @@ namespace GameRemoteConsole{
     /**
     * 改變參數設定
     */
-    //% blockId="ChangeSetting" block="change setting|#style %c_style|#color %c_color|#emoticon %c_emoticon"
+    //% blockId="ChangeSetting" block="change setting|style %c_style|color %c_color|emoticon %c_emoticon"
     //% blockGap=20 weight=90
     export function ChangeSetting(c_style: number, c_color: number, c_emoticon: number): void {
         cmd_list[0] = c_style
@@ -248,7 +248,7 @@ namespace GameRemoteConsole{
     /**
     * Radio接收端，可選擇是否Serial輸出
     */
-    //% blockId="RemoteRadioDatasHandle" block="get datas from remote|#SerialOut %isoutput"
+    //% blockId="RemoteRadioDatasHandle" block="get datas from remote|SerialOut %isoutput"
     //% blockGap=20 weight=80
     export function RemoteRadioDatasHandle(isoutput: SetYesNo=SetYesNo.NO): void {
         let t_output = 0
@@ -362,7 +362,7 @@ namespace GameRemoteConsole{
     /**
     * Serial接收端，負責執行由Unity傳來的訊息
     */
-    //% blockId="SerialDatasHandle" block="get datas from serial|#RadioOut %isoutput"
+    //% blockId="SerialDatasHandle" block="get datas from serial|RadioOut %isoutput"
     //% blockGap=20 weight=80
     export function SerialDatasHandle(isoutput: SetYesNo=SetYesNo.NO): void {
         let t_output = 0
