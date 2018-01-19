@@ -42,6 +42,45 @@ namespace GameRemoteConsole{
 
     let datatimer = 0
 
+    //powerLED define
+    power_list = [images.createImage(`
+    . . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    `), images.createImage(`
+    . . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    # # # # #
+    `), images.createImage(`
+    . . . . .
+    . . . . .
+    . . . . .
+    # # # # #
+    # # # # #
+    `), images.createImage(`
+    . . . . .
+    . . . . .
+    # # # # #
+    # # # # #
+    # # # # #
+    `), images.createImage(`
+    . . . . .
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    `), images.createImage(`
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    `)]
+
 
     /**
     * 初始，設定radio群組
@@ -312,6 +351,7 @@ namespace GameRemoteConsole{
     //% blockGap=20 weight=80
     export function SerialDatasHandle(isoutput: SetYesNo=SetYesNo.NO): void {
         let t_output = 0
+        let c1 = images.createImage
         switch(isoutput) {
             case SetYesNo.NO: t_output = 0; break;
             case SetYesNo.YES: t_output = 1; break;
@@ -320,12 +360,26 @@ namespace GameRemoteConsole{
         let tmpstr = ""
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
             tmpstr = serial.readUntil('\r')
-            if (tmpstr.compare("A") == 0) {
-                serial.writeLine("You give me: A")
-            } else if (tmpstr.compare("B") == 0) {
-                serial.writeLine("You give me: B")
+            if (tmpstr.compare("#0") == 0) {
+                power_list[1].showImage(0)
+                serial.writeLine("You give me: [0]")
+            } else lif (tmpstr.compare("#1") == 0) {
+                power_list[1].showImage(0)
+                serial.writeLine("You give me: [1]")
+            } else if (tmpstr.compare("#2") == 0) {
+                power_list[2].showImage(0)
+                serial.writeLine("You give me: [2]")
+            } else if (tmpstr.compare("#3") == 0) {
+                power_list[3].showImage(0)
+                serial.writeLine("You give me: [3]")
+            } else if (tmpstr.compare("#4") == 0) {
+                power_list[4].showImage(0)
+                serial.writeLine("You give me: [4]")
+            } else if (tmpstr.compare("#5") == 0) {
+                power_list[5].showImage(0)
+                serial.writeLine("You give me: [5]")
             } else {
-                serial.writeLine("You give me: " + tmpstr + " :" +     tmpstr.length)
+                serial.writeLine("other string: " + tmpstr + " :" +     tmpstr.length)
             }
         })
     }
