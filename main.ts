@@ -91,7 +91,7 @@ namespace GameRemoteConsole{
     /**
     * 初始，設定radio群組
     */
-    //% blockId="ConsoleInit" block="console init|id %group_id"
+    //% blockId="ConsoleInit" block="console init|#id %group_id"
     //% blockGap=20 weight=90
     export function ConsoleInit(group_id: SetGroup): void {
         let t_id = 0
@@ -112,7 +112,7 @@ namespace GameRemoteConsole{
     /**
     * 改變參數設定
     */
-    //% blockId="ChangeSetting" block="change setting|style %c_style|color %c_color|emoticon %c_emoticon"
+    //% blockId="ChangeSetting" block="change setting|#style %c_style|#color %c_color|#emoticon %c_emoticon"
     //% blockGap=20 weight=90
     export function ChangeSetting(c_style: number, c_color: number, c_emoticon: number): void {
         cmd_list[0] = c_style
@@ -136,7 +136,7 @@ namespace GameRemoteConsole{
     }
 
     /**
-    * 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸
+    * 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸，並接收由配對裝置傳來的radio訊號
     */
     //% blockId="ConsoleExcue" block="console excue"
     //% blockGap=20 weight=80
@@ -234,12 +234,21 @@ namespace GameRemoteConsole{
             radio.sendValue("move", move)
             imu_tiemr = input.runningTime()
         }
+
+        radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
+            //--- while we get the power-value from pair device (from Unity game-> serial-master-micro:bit) ---//
+            if (msg_name.compare("power") == 0) {
+                if(msg_value >= 0 && msg_value <= 5) {
+                    power_list[0].showImage(msg_value)
+                }
+            }
+        })
     }
 
     /**
     * Radio接收端，可選擇是否Serial輸出
     */
-    //% blockId="RemoteRadioDatasHandle" block="get datas from remote|SerialOut %isoutput"
+    //% blockId="RemoteRadioDatasHandle" block="get datas from remote|#SerialOut %isoutput"
     //% blockGap=20 weight=80
     export function RemoteRadioDatasHandle(isoutput: SetYesNo=SetYesNo.NO): void {
         let t_output = 0
