@@ -357,7 +357,6 @@ namespace GameRemoteConsole{
     //% blockGap=20 weight=80
     export function SerialDatasHandle(isoutput: SetYesNo=SetYesNo.NO): void {
         let t_output = 0
-        let c1 = images.createImage
         switch(isoutput) {
             case SetYesNo.NO: t_output = 0; break;
             case SetYesNo.YES: t_output = 1; break;
