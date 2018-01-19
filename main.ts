@@ -368,7 +368,7 @@ namespace GameRemoteConsole{
             if (tmpstr.compare("#0") == 0) {
                 power_list[0].showImage(0)
                 serial.writeLine("You give me: [0]")
-            } else lif (tmpstr.compare("#1") == 0) {
+            } else if (tmpstr.compare("#1") == 0) {
                 power_list[1].showImage(0)
                 serial.writeLine("You give me: [1]")
             } else if (tmpstr.compare("#2") == 0) {
