@@ -144,41 +144,36 @@ namespace GameRemoteConsole{
         if (input.buttonIsPressed(Button.A)) {
             btnA = 1
             basic.showString("A")
-            radio.sendValue("btnA", 1)
         }else {
             btnA = 0
         }
         if (input.buttonIsPressed(Button.B)) {
             btnB = 1
             basic.showString("B")
-            radio.sendValue("btnB", 1)
         }else {
             btnB = 0
         }
         if (input.pinIsPressed(TouchPin.P0)) {
             P0 = 1
-            //basic.showString("0")
-            radio.sendValue("P0", 1)
+            basic.showString("0")
         }else {
             P0 = 0
         }
         if (input.pinIsPressed(TouchPin.P1)) {
             P1 = 1
             basic.showString("1")
-            radio.sendValue("P1", 1)
         }else {
             P1 = 0
         }
         if (input.pinIsPressed(TouchPin.P2)) {
             P2 = 1
             basic.showString("2")
-            radio.sendValue("P2", 1)
         }else {
             P2 = 0
         }
         if (btnA!=lastbtnA) {
             if(btnA > 0) {
-                
+                radio.sendValue("btnA", 1)
             }else {
                 basic.clearScreen()
                 radio.sendValue("btnA", 0)
@@ -187,7 +182,7 @@ namespace GameRemoteConsole{
         }
         if (btnB!=lastbtnB) {
             if(btnB > 0) {
-                
+                radio.sendValue("btnB", 1)
             }else {
                 basic.clearScreen()
                 radio.sendValue("btnB", 0)
@@ -196,7 +191,7 @@ namespace GameRemoteConsole{
         }
         if (P0!=lastP0) {
             if(P0 > 0) {
-                
+                radio.sendValue("P0", 1)
             }else {
                 basic.clearScreen()
                 radio.sendValue("P0", 0)
@@ -205,7 +200,7 @@ namespace GameRemoteConsole{
         }
         if (P1!=lastP1) {
             if(P1 > 0) {
-                
+                radio.sendValue("P1", 1)
             }else {
                 basic.clearScreen()
                 radio.sendValue("P1", 0)
@@ -214,7 +209,7 @@ namespace GameRemoteConsole{
         }
         if (P2!=lastP2) {
             if(P2 > 0) {
-                
+                radio.sendValue("P2", 1)
             }else {
                 basic.clearScreen()
                 radio.sendValue("P2", 0)
