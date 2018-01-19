@@ -43,37 +43,43 @@ namespace GameRemoteConsole{
     let datatimer = 0
 
     //powerLED define
-    power_list = [images.createImage(`
+    let power_list = [
+    images.createImage(`
     . . . . .
     . . . . .
     . . . . .
     . . . . .
     . . . . .
-    `), images.createImage(`
+    `), 
+    images.createImage(`
     . . . . .
     . . . . .
     . . . . .
     . . . . .
     # # # # #
-    `), images.createImage(`
+    `), 
+    images.createImage(`
     . . . . .
     . . . . .
     . . . . .
     # # # # #
     # # # # #
-    `), images.createImage(`
+    `), 
+    images.createImage(`
     . . . . .
     . . . . .
     # # # # #
     # # # # #
     # # # # #
-    `), images.createImage(`
+    `), 
+    images.createImage(`
     . . . . .
     # # # # #
     # # # # #
     # # # # #
     # # # # #
-    `), images.createImage(`
+    `), 
+    images.createImage(`
     # # # # #
     # # # # #
     # # # # #
@@ -361,7 +367,7 @@ namespace GameRemoteConsole{
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
             tmpstr = serial.readUntil('\r')
             if (tmpstr.compare("#0") == 0) {
-                power_list[1].showImage(0)
+                power_list[0].showImage(0)
                 serial.writeLine("You give me: [0]")
             } else lif (tmpstr.compare("#1") == 0) {
                 power_list[1].showImage(0)
