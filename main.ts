@@ -333,11 +333,16 @@ namespace GameRemoteConsole{
         }
 
         if(input.runningTime()-imu_tiemr > 200 && isPlay == 1 ) {
-            radio.sendValue("move", move)
+            if(isPlay==1) {
+                serial.writeLine("move=" + move)
+            }else {
+                serial.writeLine("205")
+            }
             imu_tiemr = input.runningTime()
         }
 
-        let tmpstr = ""
+
+        let tmpstr = "" 
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
             tmpstr = serial.readUntil('\n')
 
