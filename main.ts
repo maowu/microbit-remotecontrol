@@ -337,6 +337,7 @@ namespace GameRemoteConsole{
             imu_tiemr = input.runningTime()
         }
 
+        let tmpstr = ""
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
             tmpstr = serial.readUntil('\n')
 
