@@ -41,6 +41,7 @@ namespace GameRemoteConsole{
     cmd_list = [0, 0, 0]
 
     let datatimer = 0
+    let isPlay = 0
 
     //powerLED define
     let power_list = [
@@ -225,7 +226,7 @@ namespace GameRemoteConsole{
             move =0
         }
 
-        if(input.runningTime()-imu_tiemr > 100) {
+        if(input.runningTime()-imu_tiemr > 200) {
             radio.sendValue("move", move)
             imu_tiemr = input.runningTime()
         }
@@ -236,6 +237,111 @@ namespace GameRemoteConsole{
                 if(msg_value >= 0 && msg_value <= 5) {
                     power_list[msg_value].showImage(0)
                 }
+            }
+        })
+    }
+
+
+    /**
+    * [SingleUserConsole] 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸，並直接傳送Serial訊號
+    */
+    //% blockId="ConsoleExcueAtHome" block="console excue @ Home"
+    //% blockGap=20 weight=80
+    export function ConsoleExcueAtHome(): void {
+        if (input.buttonIsPressed(Button.A)) {
+            btnA = 1
+            basic.showString("A")
+        }else {
+            btnA = 0
+        }
+        if (input.buttonIsPressed(Button.B)) {
+            btnB = 1
+            basic.showString("B")
+        }else {
+            btnB = 0
+        }
+        if (input.pinIsPressed(TouchPin.P0)) {
+            P0 = 1
+            basic.showString("0")
+        }else {
+            P0 = 0
+        }
+        if (input.pinIsPressed(TouchPin.P1)) {
+            P1 = 1
+            basic.showString("1")
+        }else {
+            P1 = 0
+        }
+        if (input.pinIsPressed(TouchPin.P2)) {
+            P2 = 1
+            basic.showString("2")
+        }else {
+            P2 = 0
+        }
+        if (btnA!=lastbtnA) {
+            if(btnA > 0) {
+                serial.writeLine("btnA=" + 1)
+            }else {
+                basic.clearScreen()
+                serial.writeLine("btnA=" + 0)
+            }
+            lastbtnA = btnA
+        }
+        if (btnB!=lastbtnB) {
+            if(btnB > 0) {
+                serial.writeLine("btnB=" + 1)
+            }else {
+                basic.clearScreen()
+                serial.writeLine("btnB=" + 0)
+            }
+            lastbtnB = btnB
+        }
+        if (P0!=lastP0) {
+            if(P0 > 0) {
+                serial.writeLine("P0=" + 1)
+            }else {
+                basic.clearScreen()
+                serial.writeLine("P0=" + 0)
+            }
+            lastP0 = P0
+        }
+        if (P1!=lastP1) {
+            if(P1 > 0) {
+                serial.writeLine("P1=" + 1)
+            }else {
+                basic.clearScreen()
+                serial.writeLine("P1=" + 0)
+            }
+            lastP1 = P1
+        }
+        if (P2!=lastP2) {
+            if(P2 > 0) {
+                serial.writeLine("P2=" + 1)
+            }else {
+                basic.clearScreen()
+                serial.writeLine("P2=" + 1)
+            }
+            lastP2 = P2
+        }
+
+        if (input.acceleration(Dimension.X) > 300) {
+            move = 1
+        } else if (input.acceleration(Dimension.X) < -300) {
+            move = -1
+        } else {
+            move =0
+        }
+
+        if(input.runningTime()-imu_tiemr > 200 && isPlay == 1 ) {
+            radio.sendValue("move", move)
+            imu_tiemr = input.runningTime()
+        }
+
+        serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
+            tmpstr = serial.readUntil('\n')
+
+            if (tmpstr.compare("#get") == 0) {
+                isPlay = 1;
             }
         })
     }
@@ -352,7 +458,7 @@ namespace GameRemoteConsole{
             // -- end check message content --- //
 
             if (t_output==1) {
-                if (input.runningTime() - datatimer > 100) {
+                if (input.runningTime() - datatimer > 200) {
                     serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
                 }
