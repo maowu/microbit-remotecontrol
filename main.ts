@@ -332,7 +332,7 @@ namespace GameRemoteConsole{
             move =0
         }
 
-        if(input.runningTime()-imu_tiemr > 200 ) {
+        if(input.runningTime()-imu_tiemr > 100 ) {
             if(isPlay==1) {
                 serial.writeLine("move=" + move)
             }else {
