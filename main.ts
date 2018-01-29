@@ -28,17 +28,19 @@ namespace GameRemoteConsole{
     let P0 = 0
     let P1 = 0
     let P2 = 0
-    let lastbtnA = 0
-    let lastbtnB = 0
-    let lastP0 = 0
-    let lastP1 = 0
-    let lastP2 = 0
+    let lastbtnA = -1
+    let lastbtnB = -1
+    let lastP0 = -1
+    let lastP1 = -1
+    let lastP2 = -1
     let imu_tiemr = 0
     let move = 0
     let resetTimer = 0;
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
+    let cmd_timer_list: number[] = []
+    cmd_timer_list = [0, 0, 0, 0]
 
     let datatimer = 0
     let isPlay = 0
@@ -442,22 +444,34 @@ namespace GameRemoteConsole{
                 }
             } else if (msg_name.compare("cmd1") == 0) {
                 if(t_output==1) {
-                    serial.writeLine("cmd1=" + msg_value)
+                    if(input.runningTime()- cmd_timer_list[0] > 1000) {
+                        serial.writeLine("cmd1=" + msg_value)
+                        cmd_timer_list[0] = input.runningTime()
+                    }
                 }
             } else if (msg_name.compare("cmd2") == 0) {
                 if(t_output==1) {
-                    serial.writeLine("cmd2=" + msg_value)
+                    if(input.runningTime()- cmd_timer_list[1] > 1000) {
+                        serial.writeLine("cmd2=" + msg_value)
+                        cmd_timer_list[1] = input.runningTime()
+                    }
                 }
             } else if (msg_name.compare("cmd3") == 0) {
                 if(t_output==1) {
-                    serial.writeLine("cmd3=" + msg_value)
+                    if(input.runningTime()- cmd_timer_list[2] > 1000) {
+                        serial.writeLine("cmd3=" + msg_value)
+                        cmd_timer_list[2] = input.runningTime()
+                    }   
                 }
             } else if (msg_name.compare("change") == 0) {
                 if(t_output==1) {
-                    serial.writeLine("cmd3=" + msg_value)
+                    if(input.runningTime()- cmd_timer_list[3] > 1000) {
+                        serial.writeLine("change=" + msg_value)
+                        cmd_timer_list[3] = input.runningTime()
+                    }   
                 }
                 resetTimer = input.runningTime()
-            }
+            } 
 
             
 
