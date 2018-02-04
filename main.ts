@@ -25,24 +25,36 @@ enum SetYesNo {
 namespace GameRemoteConsole{
     let btnA = 0
     let btnB = 0
+    let btnAB = 0
     let P0 = 0
     let P1 = 0
     let P2 = 0
     let lastbtnA = -1
     let lastbtnB = -1
+    let lastbtnAB = -1
     let lastP0 = -1
     let lastP1 = -1
     let lastP2 = -1
-    let imu_tiemr = 0
     let move = 0
-    let resetTimer = 0;
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
+
+    let imu_tiemr = 0
+    let resetTimer = 0
+    let datatimer = 0
+
     let cmd_timer_list: number[] = []
     cmd_timer_list = [0, 0, 0, 0]
 
-    let datatimer = 0
+    let btnAStr = "left"
+    let btnBStr = "right"
+    let btnABStr = "up"
+    let shakeStr = "power"
+    let P0Str = "P0"
+    let P1Str = "P1"
+    let P2Str = "P2"
+    
     let isPlay = 0
 
     //powerLED define
@@ -109,6 +121,14 @@ namespace GameRemoteConsole{
         radio.setGroup(t_id)
         radio.setTransmitSerialNumber(true)
         radio.setTransmitPower(7)
+
+        // init timer 
+        resetTimer = input.runningTime()
+        imu_tiemr = input.runningTime()
+        datatimer = input.runningTime()
+        for(let v=0; v<4; v++) {
+            cmd_timer_list[v] = input.runningTime()
+        }
     }
 
 
@@ -192,6 +212,15 @@ namespace GameRemoteConsole{
             }
             lastbtnB = btnB
         }
+        if (btnAB!=lastbtnAB) {
+            if(btnAB > 0) {
+                radio.sendValue("btnAB", 1)
+            }else {
+                basic.clearScreen()
+                radio.sendValue("btnAB", 0)
+            }
+            lastbtnAB = btnAB
+        }
         if (P0!=lastP0) {
             if(P0 > 0) {
                 radio.sendValue("P0", 1)
@@ -225,7 +254,7 @@ namespace GameRemoteConsole{
         } else if (input.acceleration(Dimension.X) < -300) {
             move = -1
         } else {
-            move =0
+            move = 0
         }
 
         if(input.runningTime()-imu_tiemr > 200) {
@@ -370,6 +399,7 @@ namespace GameRemoteConsole{
             case SetYesNo.NO: t_led = 0; break;
             case SetYesNo.YES: t_led = 1; break;
         }
+
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
 
             // -- start check message content --- //
@@ -382,7 +412,7 @@ namespace GameRemoteConsole{
                 } else {
                     btnA = 0
                 }
-                serial.writeLine("btnA=" + btnA)
+                serial.writeLine(btnAStr + "=" + btnA)
                 lastbtnA = btnA
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("btnB") == 0) {
@@ -394,8 +424,20 @@ namespace GameRemoteConsole{
                 } else {
                     btnB = 0
                 }
-                serial.writeLine("btnB=" + btnB)
+                serial.writeLine(btnBStr + "=" + btnB)
                 lastbtnB = btnB
+                resetTimer = input.runningTime()
+            } else if (msg_name.compare("btnAB") == 0) {
+                if (msg_value > 0) {
+                    btnAB = 1
+                    if(t_led) {
+                        basic.showString("C");
+                    }
+                } else {
+                    btnAB = 0
+                }
+                serial.writeLine(btnABStr + "=" + btnAB)
+                lastbtnAB = btnAB
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("P0") == 0) {
                 if (msg_value > 0) {
@@ -406,7 +448,7 @@ namespace GameRemoteConsole{
                 } else {
                     P0 = 0
                 }
-                serial.writeLine("P0=" + P0)
+                serial.writeLine(P0Str + "=" + P0)
                 lastP0 = P0
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("P1") == 0) {
@@ -418,7 +460,7 @@ namespace GameRemoteConsole{
                 } else {
                     P1 = 0
                 }
-                serial.writeLine("P1=" + P1)
+                serial.writeLine(P1Str + "=" + P1)
                 lastP1 = P1
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("P2") == 0) {
@@ -431,7 +473,7 @@ namespace GameRemoteConsole{
                 } else {
                     P2 = 0
                 }
-                serial.writeLine("P2=" + P2)
+                serial.writeLine(P2Str + "=" + P2)
                 lastP2 = P2
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
@@ -479,7 +521,7 @@ namespace GameRemoteConsole{
 
             if (t_output==1) {
                 if (input.runningTime() - datatimer > 200) {
-                    serial.writeLine("move=" + move)  
+                    //serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
                 }
             }
@@ -515,27 +557,27 @@ namespace GameRemoteConsole{
                 
                 serial.writeLine("You give me: [0]")
             } else if (tmpstr.compare("#1") == 0) {
-                power_list[1].showImage(0)
+                //power_list[1].showImage(0)
                 r_msgout = 1;
 
                 serial.writeLine("You give me: [1]")
             } else if (tmpstr.compare("#2") == 0) {
-                power_list[2].showImage(0)
+                //power_list[2].showImage(0)
                 r_msgout = 2;
 
                 serial.writeLine("You give me: [2]")
             } else if (tmpstr.compare("#3") == 0) {
-                power_list[3].showImage(0)
+                //power_list[3].showImage(0)
                 r_msgout = 3;
 
                 serial.writeLine("You give me: [3]")
             } else if (tmpstr.compare("#4") == 0) {
-                power_list[4].showImage(0)
+                //power_list[4].showImage(0)
                 r_msgout = 4;
 
                 serial.writeLine("You give me: [4]")
             } else if (tmpstr.compare("#5") == 0) {
-                power_list[5].showImage(0)
+                //power_list[5].showImage(0)
                 r_msgout = 5;
 
                 serial.writeLine("You give me: [5]")
