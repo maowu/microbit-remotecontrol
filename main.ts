@@ -176,6 +176,12 @@ namespace GameRemoteConsole{
         }else {
             btnB = 0
         }
+        if (input.buttonIsPressed(Button.AB)) {
+            btnAB = 1
+            basic.showString("C")
+        }else {
+            btnAB = 0
+        }
         if (input.pinIsPressed(TouchPin.P0)) {
             P0 = 1
             basic.showString("0")
@@ -211,6 +217,15 @@ namespace GameRemoteConsole{
                 radio.sendValue("btnB", 0)
             }
             lastbtnB = btnB
+        }
+        if (btnAB!=lastbtnAB) {
+            if(btnAB > 0) {
+                radio.sendValue("btnAB", 1)
+            }else {
+                basic.clearScreen()
+                radio.sendValue("btnAB", 0)
+            }
+            lastbtnAB = btnAB
         }
         if (btnAB!=lastbtnAB) {
             if(btnAB > 0) {
