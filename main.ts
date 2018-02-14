@@ -491,6 +491,11 @@ namespace GameRemoteConsole{
                 serial.writeLine(P2Str + "=" + P2)
                 lastP2 = P2
                 resetTimer = input.runningTime()
+            } else if (msg_name.compare("shake") == 0) {
+                if(t_output==1) {
+                    serial.writeLine(shakeStr + "=1")
+                }
+                resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
                 if (msg_value > 0) {
                     move = 1
@@ -568,14 +573,13 @@ namespace GameRemoteConsole{
             tmpstr = serial.readUntil('\n')
             if (tmpstr.compare("#0") == 0) {
                 power_list[0].showImage(0)
-                r_msgout = 0;
-                
-                serial.writeLine("You give me: [0]")
+                r_msgout = 0;        
+                //serial.writeLine("You give me: [0]")
             } else if (tmpstr.compare("#1") == 0) {
                 //power_list[1].showImage(0)
                 r_msgout = 1;
 
-                serial.writeLine("You give me: [1]")
+                //serial.writeLine("You give me: [1]")
             } else if (tmpstr.compare("#2") == 0) {
                 //power_list[2].showImage(0)
                 r_msgout = 2;
@@ -585,19 +589,19 @@ namespace GameRemoteConsole{
                 //power_list[3].showImage(0)
                 r_msgout = 3;
 
-                serial.writeLine("You give me: [3]")
+                //serial.writeLine("You give me: [3]")
             } else if (tmpstr.compare("#4") == 0) {
                 //power_list[4].showImage(0)
                 r_msgout = 4;
 
-                serial.writeLine("You give me: [4]")
+                //serial.writeLine("You give me: [4]")
             } else if (tmpstr.compare("#5") == 0) {
                 //power_list[5].showImage(0)
                 r_msgout = 5;
 
-                serial.writeLine("You give me: [5]")
+                //serial.writeLine("You give me: [5]")
             } else {
-                serial.writeLine("other string: " + tmpstr + " :" +     tmpstr.length)
+                //serial.writeLine("other string: " + tmpstr + " :" +     tmpstr.length)
             }
 
             if(t_output == 1) {
