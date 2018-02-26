@@ -555,7 +555,8 @@ namespace GameRemoteConsole{
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("shake") == 0) {
                 if(t_output==1) {
-                    serial.writeLine(shakeStr + "=1")
+                    //serial.writeLine(shakeStr + "=1")
+                    serial.writeLine("power=1")
                 }
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
