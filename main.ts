@@ -47,9 +47,9 @@ namespace GameRemoteConsole{
     let cmd_timer_list: number[] = []
     cmd_timer_list = [0, 0, 0, 0]
 
-    let btnAStr = "left"
-    let btnBStr = "right"
-    let btnABStr = "up"
+    let btnAStr = "power"
+    let btnBStr = "up"
+    let btnABStr = "up2"
     let shakeStr = "power"
     let P0Str = "P0"
     let P1Str = "P1"
@@ -555,8 +555,7 @@ namespace GameRemoteConsole{
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("shake") == 0) {
                 if(t_output==1) {
-                    //serial.writeLine(shakeStr + "=1")
-                    serial.writeLine("power=1")
+                    serial.writeLine(shakeStr + "=1")
                 }
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
