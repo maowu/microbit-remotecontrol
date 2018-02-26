@@ -159,6 +159,68 @@ namespace GameRemoteConsole{
     }
 
     /**
+    * [RemoteControlSimple] 搖桿的執行功能簡單版，捕捉A/B按鍵以及加速計的X軸，並接收由配對裝置傳來的radio訊號
+    */
+    //% blockId="ConsoleExcueSimple" block="console excue simple"
+    //% blockGap=20 weight=80
+    export function ConsoleExcueSimple(): void {
+        if (input.buttonIsPressed(Button.A)) {
+            btnA = 1
+            basic.showString("A")
+            radio.sendValue("btnA", 1)
+        }
+        if (input.buttonIsPressed(Button.B)) {
+            btnB = 1
+            basic.showString("B")
+            radio.sendValue("btnB", 1)
+        }
+        if (input.buttonIsPressed(Button.AB)) {
+            btnAB = 1
+            basic.showString("C")
+            radio.sendValue("btnAB", 1)
+        }
+        if (input.pinIsPressed(TouchPin.P0)) {
+            P0 = 1
+            basic.showString("0")
+            radio.sendValue("P0", 1)
+        }
+        if (input.pinIsPressed(TouchPin.P1)) {
+            P1 = 1
+            basic.showString("1")
+            radio.sendValue("P1", 1)
+        }
+        if (input.pinIsPressed(TouchPin.P2)) {
+            P2 = 1
+            basic.showString("2")
+            radio.sendValue("P2", 1)
+        }
+
+
+        if (input.acceleration(Dimension.X) > 300) {
+            move = 1
+        } else if (input.acceleration(Dimension.X) < -300) {
+            move = -1
+        } else {
+            move = 0
+        }
+
+        if(input.runningTime()-imu_tiemr > 200) {
+            radio.sendValue("move", move)
+            imu_tiemr = input.runningTime()
+        }
+
+        radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
+            //--- while we get the power-value from pair device (from Unity game-> serial-master-micro:bit) ---//
+            if (msg_name.compare("power") == 0) {
+                if(msg_value >= 0 && msg_value <= 5) {
+                    power_list[msg_value].showImage(0)
+                }
+            }
+        })
+
+    }
+
+    /**
     * [RemoteControl] 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸，並接收由配對裝置傳來的radio訊號
     */
     //% blockId="ConsoleExcue" block="console excue"
@@ -541,7 +603,7 @@ namespace GameRemoteConsole{
 
             if (t_output==1) {
                 if (input.runningTime() - datatimer > 200) {
-                    //serial.writeLine("move=" + move)  
+                    serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
                 }
             }
