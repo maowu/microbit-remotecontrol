@@ -202,9 +202,9 @@ namespace GameRemoteConsole{
             radio.sendValue("P2", 1)
         }
         */
-        if (input.acceleration(Dimension.X) > 300) {
+        if (input.acceleration(Dimension.X) > 200) {
             move = 1
-        } else if (input.acceleration(Dimension.X) < -300) {
+        } else if (input.acceleration(Dimension.X) < -200) {
             move = -1
         } else {
             move = 0
@@ -219,12 +219,12 @@ namespace GameRemoteConsole{
             radio.sendValue("up", up)
             lastup = up
         } 
-        /*
+
+        
         if(lastmove != move) {
             radio.sendValue("move", move)
             lastmove = move;
         }
-        */
 
         if(input.runningTime()-imu_timer > 1000) {
             radio.sendValue("up", up)
