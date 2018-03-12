@@ -225,12 +225,15 @@ namespace GameRemoteConsole{
                 radio.sendValue("btnB", up)
                 lastup = up
                 upCount = 0
-            } else {
+            } 
+            /*
+            else {
                 if(upCount<2) {
                     radio.sendValue("btnB", up)
                     upCount = upCount + 1
                 }
             }
+            */
             imu_timer = input.runningTime()
         }
 
@@ -629,7 +632,8 @@ namespace GameRemoteConsole{
             // -- end check message content --- //
 
             if (t_output==1) {
-                if (input.runningTime() - datatimer > 200) {
+                if (input.runningTime() - datatimer > 300) {
+                    serial.writeLine(btnBStr + "=" + btnB)
                     serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
                 }
