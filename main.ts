@@ -219,19 +219,15 @@ namespace GameRemoteConsole{
             radio.sendValue("up", up)
             lastup = up
         } 
-
-        if(input.runningTime()-imu_timer > 300) {
-            if(lastmove != move) {
-                radio.sendValue("move", move)
-                lastmove = move;
-            }
-
-            imu_timer = input.runningTime()
+        if(lastmove != move) {
+            radio.sendValue("move", move)
+            lastmove = move;
         }
 
-        if(input.runningTime()-datatimer > 1000) {
+        if(input.runningTime()-imu_timer > 1000) {
             radio.sendValue("up", up)
-            datatimer = input.runningTime()
+            radio.sendValue("move", move)
+            imu_timer = input.runningTime()
         }
 
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
