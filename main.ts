@@ -208,7 +208,7 @@ namespace GameRemoteConsole{
             move = 0
         }
 
-        if (input.acceleration(Dimension.X) > 200) {
+        if (input.acceleration(Dimension.Y) > 200) {
             up = 1
         } else {
             up = 0
