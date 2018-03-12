@@ -219,10 +219,12 @@ namespace GameRemoteConsole{
             radio.sendValue("up", up)
             lastup = up
         } 
+        /*
         if(lastmove != move) {
             radio.sendValue("move", move)
             lastmove = move;
         }
+        */
 
         if(input.runningTime()-imu_timer > 1000) {
             radio.sendValue("up", up)
@@ -637,7 +639,7 @@ namespace GameRemoteConsole{
             // -- end check message content --- //
 
             if (t_output==1) {
-                if (input.runningTime() - datatimer > 500) {
+                if (input.runningTime() - datatimer > 300) {
                     //serial.writeLine(btnBStr + "=" + btnB)
                     serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
