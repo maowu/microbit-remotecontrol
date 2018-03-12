@@ -222,6 +222,11 @@ namespace GameRemoteConsole{
             imu_tiemr = input.runningTime()
         }
 
+        if(input.runningTime()-data_tiemr > 200) {
+            radio.sendValue("btnB", up)
+            data_tiemr = input.runningTime()
+        }
+
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
             //--- while we get the power-value from pair device (from Unity game-> serial-master-micro:bit) ---//
             if (msg_name.compare("power") == 0) {
