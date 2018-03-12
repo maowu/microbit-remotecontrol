@@ -37,6 +37,7 @@ namespace GameRemoteConsole{
     let lastP2 = -1
     let move = 0
     let lastmove = 0
+    let lastup = 0
     let up = 0
 
     let cmd_list: number[] = []
@@ -218,14 +219,19 @@ namespace GameRemoteConsole{
                 radio.sendValue("move", move)
                 lastmove = move;
             }
+            if(lastup != up) {
+                radio.sendValue("btnB", up)
+                lastup = up;
+            }
             radio.sendValue("btnB", up)
             imu_timer = input.runningTime()
         }
-
+        /*
         if(input.runningTime()-datatimer > 200) {
             radio.sendValue("btnB", up)
             datatimer = input.runningTime()
         }
+        */
 
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
             //--- while we get the power-value from pair device (from Unity game-> serial-master-micro:bit) ---//
