@@ -39,6 +39,7 @@ namespace GameRemoteConsole{
     let lastmove = 0
     let lastup = 0
     let up = 0
+    let upCount = 0
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
@@ -221,7 +222,13 @@ namespace GameRemoteConsole{
             }
             if(lastup != up) {
                 radio.sendValue("btnB", up)
-                lastup = up;
+                lastup = up
+                upCount = 0
+            } else {
+                if(upCount<3) {
+                    radio.sendValue("btnB", up)
+                    upCount += 1
+                }
             }
             imu_timer = input.runningTime()
         }
