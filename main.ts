@@ -36,6 +36,9 @@ namespace GameRemoteConsole{
     let lastP1 = -1
     let lastP2 = -1
     let move = 0
+    let lastmove = 0
+    let up = 0
+    let lastup = 0
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
@@ -168,11 +171,13 @@ namespace GameRemoteConsole{
             btnA = 1
             basic.showString("A")
             radio.sendValue("btnA", 1)
+            btnA = 0
         }
         if (input.buttonIsPressed(Button.B)) {
             btnB = 1
             basic.showString("B")
             radio.sendValue("btnB", 1)
+            btnB = 0
         }
         if (input.buttonIsPressed(Button.AB)) {
             btnAB = 1
@@ -195,7 +200,6 @@ namespace GameRemoteConsole{
             radio.sendValue("P2", 1)
         }
 
-
         if (input.acceleration(Dimension.X) > 300) {
             move = 1
         } else if (input.acceleration(Dimension.X) < -300) {
@@ -204,8 +208,21 @@ namespace GameRemoteConsole{
             move = 0
         }
 
+        if (input.acceleration(Dimension.X) > 200) {
+            up = 1
+        } else {
+            up = 0
+        }
+
         if(input.runningTime()-imu_tiemr > 200) {
-            radio.sendValue("move", move)
+            if(lastmove != move) {
+                radio.sendValue("move", move)
+                lastmove = move;
+            }
+            if(lastup != up) {
+                radio.sendValue("btnB", 1)
+                lastup = up;
+            }
             imu_tiemr = input.runningTime()
         }
 
@@ -459,6 +476,8 @@ namespace GameRemoteConsole{
             }
         })
     }
+
+    
 
     /**
     * [MsgHnadle] Radio接收端，可選擇是否Serial輸出
