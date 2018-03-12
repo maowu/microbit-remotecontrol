@@ -221,7 +221,7 @@ namespace GameRemoteConsole{
                 radio.sendValue("move", move)
                 lastmove = move;
             }
-            radio.sendValue("btnB", up)
+            radio.sendValue("up", up)
 
             /*
 
@@ -599,7 +599,18 @@ namespace GameRemoteConsole{
                 } else {
                     move = 0
                 }
-            } else if (msg_name.compare("cmd1") == 0) {
+            } else if (msg_name.compare("up") == 0) {
+                if (msg_value > 0) {
+                    btnB = 1
+                } else {
+                    btnB = 0
+                }
+                serial.writeLine(btnBStr + "=" + btnB)
+                resetTimer = input.runningTime()
+            }
+
+            /*
+            else if (msg_name.compare("cmd1") == 0) {
                 if(t_output==1) {
                     if(input.runningTime()- cmd_timer_list[0] > 1000) {
                         serial.writeLine("cmd1=" + msg_value)
@@ -628,7 +639,8 @@ namespace GameRemoteConsole{
                     }   
                 }
                 resetTimer = input.runningTime()
-            } 
+            }
+            */ 
 
             
 
@@ -636,7 +648,7 @@ namespace GameRemoteConsole{
 
             if (t_output==1) {
                 if (input.runningTime() - datatimer > 300) {
-                    serial.writeLine(btnBStr + "=" + btnB)
+                    //serial.writeLine(btnBStr + "=" + btnB)
                     serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
                 }
