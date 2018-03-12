@@ -185,26 +185,9 @@ namespace GameRemoteConsole{
             basic.showString("C")
             radio.sendValue("btnAB", 1)
         }
-        /*
-        if (input.pinIsPressed(TouchPin.P0)) {
-            P0 = 1
-            basic.showString("0")
-            radio.sendValue("P0", 1)
-        }
-        if (input.pinIsPressed(TouchPin.P1)) {
-            P1 = 1
-            basic.showString("1")
-            radio.sendValue("P1", 1)
-        }
-        if (input.pinIsPressed(TouchPin.P2)) {
-            P2 = 1
-            basic.showString("2")
-            radio.sendValue("P2", 1)
-        }
-        */
-        if (input.acceleration(Dimension.X) > 200) {
+        if (input.acceleration(Dimension.X) > 300) {
             move = 1
-        } else if (input.acceleration(Dimension.X) < -200) {
+        } else if (input.acceleration(Dimension.X) < -300) {
             move = -1
         } else {
             move = 0
@@ -215,6 +198,7 @@ namespace GameRemoteConsole{
         } else {
             up = 0
         }
+
         if(lastup != up) {
             radio.sendValue("up", up)
             lastup = up
@@ -228,7 +212,7 @@ namespace GameRemoteConsole{
 
         if(input.runningTime()-imu_timer > 1000) {
             radio.sendValue("up", up)
-            radio.sendValue("move", move)
+            //radio.sendValue("move", move)
             imu_timer = input.runningTime()
         }
 
@@ -541,44 +525,7 @@ namespace GameRemoteConsole{
                 serial.writeLine(btnABStr + "=" + btnAB)
                 lastbtnAB = btnAB
                 resetTimer = input.runningTime()
-            } else if (msg_name.compare("P0") == 0) {
-                if (msg_value > 0) {
-                    P0 = 1
-                    if(t_led) {
-                        basic.showString("0");
-                    }
-                } else {
-                    P0 = 0
-                }
-                serial.writeLine(P0Str + "=" + P0)
-                lastP0 = P0
-                resetTimer = input.runningTime()
-            } else if (msg_name.compare("P1") == 0) {
-                if (msg_value > 0) {
-                    P1 = 1
-                    if(t_led) {
-                        basic.showString("1");
-                    }
-                } else {
-                    P1 = 0
-                }
-                serial.writeLine(P1Str + "=" + P1)
-                lastP1 = P1
-                resetTimer = input.runningTime()
-            } else if (msg_name.compare("P2") == 0) {
-                if (msg_value > 0) {
-                    P2 = 1
-                    basic.showString("2")
-                    if(t_led) {
-                        basic.showString("2");
-                    }
-                } else {
-                    P2 = 0
-                }
-                serial.writeLine(P2Str + "=" + P2)
-                lastP2 = P2
-                resetTimer = input.runningTime()
-            } else if (msg_name.compare("shake") == 0) {
+            }  else if (msg_name.compare("shake") == 0) {
                 if(t_output==1) {
                     serial.writeLine(shakeStr + "=1")
                 }
@@ -601,38 +548,6 @@ namespace GameRemoteConsole{
                 //resetTimer = input.runningTime()
             }
 
-            /*
-            else if (msg_name.compare("cmd1") == 0) {
-                if(t_output==1) {
-                    if(input.runningTime()- cmd_timer_list[0] > 1000) {
-                        serial.writeLine("cmd1=" + msg_value)
-                        cmd_timer_list[0] = input.runningTime()
-                    }
-                }
-            } else if (msg_name.compare("cmd2") == 0) {
-                if(t_output==1) {
-                    if(input.runningTime()- cmd_timer_list[1] > 1000) {
-                        serial.writeLine("cmd2=" + msg_value)
-                        cmd_timer_list[1] = input.runningTime()
-                    }
-                }
-            } else if (msg_name.compare("cmd3") == 0) {
-                if(t_output==1) {
-                    if(input.runningTime()- cmd_timer_list[2] > 1000) {
-                        serial.writeLine("cmd3=" + msg_value)
-                        cmd_timer_list[2] = input.runningTime()
-                    }   
-                }
-            } else if (msg_name.compare("change") == 0) {
-                if(t_output==1) {
-                    if(input.runningTime()- cmd_timer_list[3] > 1000) {
-                        serial.writeLine("change=" + msg_value)
-                        cmd_timer_list[3] = input.runningTime()
-                    }   
-                }
-                resetTimer = input.runningTime()
-            }
-            */ 
 
             
 
@@ -640,7 +555,6 @@ namespace GameRemoteConsole{
 
             if (t_output==1) {
                 if (input.runningTime() - datatimer > 300) {
-                    //serial.writeLine(btnBStr + "=" + btnB)
                     serial.writeLine("move=" + move)  
                     datatimer = input.runningTime()
                 }
