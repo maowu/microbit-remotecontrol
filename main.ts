@@ -42,7 +42,7 @@ namespace GameRemoteConsole{
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
 
-    let imu_tiemr = 0
+    let imu_timer = 0
     let resetTimer = 0
     let datatimer = 0
 
@@ -126,7 +126,7 @@ namespace GameRemoteConsole{
 
         // init timer 
         resetTimer = input.runningTime()
-        imu_tiemr = input.runningTime()
+        imu_timer = input.runningTime()
         datatimer = input.runningTime()
         for(let v=0; v<4; v++) {
             cmd_timer_list[v] = input.runningTime()
@@ -213,18 +213,18 @@ namespace GameRemoteConsole{
             up = 0
         }
 
-        if(input.runningTime()-imu_tiemr > 200) {
+        if(input.runningTime()-imu_timer > 200) {
             if(lastmove != move) {
                 radio.sendValue("move", move)
                 lastmove = move;
             }
             radio.sendValue("btnB", up)
-            imu_tiemr = input.runningTime()
+            imu_timer = input.runningTime()
         }
 
-        if(input.runningTime()-data_tiemr > 200) {
+        if(input.runningTime()-datatimer > 200) {
             radio.sendValue("btnB", up)
-            data_tiemr = input.runningTime()
+            datatimer = input.runningTime()
         }
 
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
@@ -352,9 +352,9 @@ namespace GameRemoteConsole{
             move = 0
         }
 
-        if(input.runningTime()-imu_tiemr > 300) {
+        if(input.runningTime()-imu_timer > 300) {
             radio.sendValue("move", move)
-            imu_tiemr = input.runningTime()
+            imu_timer = input.runningTime()
         }
 
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
@@ -458,13 +458,13 @@ namespace GameRemoteConsole{
             move =0
         }
 
-        if(input.runningTime()-imu_tiemr > 100 ) {
+        if(input.runningTime()-imu_timer > 100 ) {
             if(isPlay==1) {
                 serial.writeLine("move=" + move)
             }else {
                 serial.writeLine("205")
             }
-            imu_tiemr = input.runningTime()
+            imu_timer = input.runningTime()
         }
 
 
