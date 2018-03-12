@@ -208,6 +208,7 @@ namespace GameRemoteConsole{
         if(lastmove != move) {
             radio.sendValue("move", move)
             lastmove = move;
+            serial.writeLine("x = " + move)
         }
 
         if(input.runningTime()-imu_timer > 1000) {
