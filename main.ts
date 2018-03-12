@@ -224,7 +224,7 @@ namespace GameRemoteConsole{
             if(lastup != up) {
                 radio.sendValue("btnB", up)
                 lastup = up
-                upCount = 0
+                //upCount = 0
             } 
             /*
             else {
