@@ -186,9 +186,9 @@ namespace GameRemoteConsole{
             radio.sendValue("btnAB", 1)
         }
         if (input.acceleration(Dimension.X) > 300) {
-            move = 1
+            move = 4    //right
         } else if (input.acceleration(Dimension.X) < -300) {
-            move = -1
+            move = 2    //left
         } else {
             move = 0
         }
@@ -199,20 +199,19 @@ namespace GameRemoteConsole{
             up = 0
         }
 
-        if(lastup != up) {
-            radio.sendValue("up", up)
+        if(lastup != up) { 
+            radio.sendValue("move", move+up)    // 0:down, 1:up, 2:l-down, 3: l_up, 4:r-down, 5:r-up
             lastup = up
         } 
 
         
         if(lastmove != move) {
-            radio.sendValue("move", move)
+            radio.sendValue("move", move+up)    // 0:down, 1:up, 2:l-down, 3: l_up, 4:r-down, 5:r-up
             lastmove = move;
-            serial.writeLine("x = " + move)
         }
 
         if(input.runningTime()-imu_timer > 1000) {
-            radio.sendValue("up", up)
+            radio.sendValue("move", move+up)    // 0:down, 1:up, 2:l-down, 3: l_up, 4:r-down, 5:r-up
             //radio.sendValue("move", move)
             imu_timer = input.runningTime()
         }
@@ -292,6 +291,7 @@ namespace GameRemoteConsole{
                 }
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
+            /*
                 if (msg_value > 0) {
                     move = 1
                 } else if(msg_value < 0){
@@ -299,15 +299,9 @@ namespace GameRemoteConsole{
                 } else {
                     move = 0
                 }
-            } else if (msg_name.compare("up") == 0) {
-                if (msg_value > 0) {
-                    btnB = 1
-                } else {
-                    btnB = 0
-                }
-                serial.writeLine(btnBStr + "=" + btnB)
-                //resetTimer = input.runningTime()
-            }
+            */
+                move = msg_value
+            } 
 
 
             
