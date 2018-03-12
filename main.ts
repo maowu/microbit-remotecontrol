@@ -216,17 +216,20 @@ namespace GameRemoteConsole{
             up = 0
         }
 
-        if(input.runningTime()-imu_timer > 200) {
+        if(input.runningTime()-imu_timer > 300) {
             if(lastmove != move) {
                 radio.sendValue("move", move)
                 lastmove = move;
             }
+            radio.sendValue("btnB", up)
+
+            /*
+
             if(lastup != up) {
                 radio.sendValue("btnB", up)
                 lastup = up
                 //upCount = 0
             } 
-            /*
             else {
                 if(upCount<2) {
                     radio.sendValue("btnB", up)
