@@ -229,9 +229,9 @@ namespace GameRemoteConsole{
             imu_timer = input.runningTime()
         }
 
-        if(input.runningTime()-data_timer > 1000) {
+        if(input.runningTime()-datatimer > 1000) {
             radio.sendValue("up", up)
-            data_timer = input.runningTime()
+            datatimer = input.runningTime()
         }
 
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
