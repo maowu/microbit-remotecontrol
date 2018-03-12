@@ -221,7 +221,11 @@ namespace GameRemoteConsole{
                 radio.sendValue("move", move)
                 lastmove = move;
             }
-            radio.sendValue("up", up)
+            if(lastup != up) {
+                radio.sendValue("up", up)
+                lastup = up
+            } 
+            
 
             /*
 
