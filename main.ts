@@ -223,15 +223,8 @@ namespace GameRemoteConsole{
                 radio.sendValue("btnB", up)
                 lastup = up;
             }
-            radio.sendValue("btnB", up)
             imu_timer = input.runningTime()
         }
-        /*
-        if(input.runningTime()-datatimer > 200) {
-            radio.sendValue("btnB", up)
-            datatimer = input.runningTime()
-        }
-        */
 
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
             //--- while we get the power-value from pair device (from Unity game-> serial-master-micro:bit) ---//
