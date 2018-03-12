@@ -227,246 +227,6 @@ namespace GameRemoteConsole{
 
     }
 
-    /**
-    * [RemoteControl] 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸，並接收由配對裝置傳來的radio訊號
-    */
-    //% blockId="ConsoleExcue" block="console excue"
-    //% blockGap=20 weight=80
-    export function ConsoleExcue(): void {
-        if (input.buttonIsPressed(Button.A)) {
-            btnA = 1
-            basic.showString("A")
-        }else {
-            btnA = 0
-        }
-        if (input.buttonIsPressed(Button.B)) {
-            btnB = 1
-            basic.showString("B")
-        }else {
-            btnB = 0
-        }
-        if (input.buttonIsPressed(Button.AB)) {
-            btnAB = 1
-            basic.showString("C")
-        }else {
-            btnAB = 0
-        }
-        if (input.pinIsPressed(TouchPin.P0)) {
-            P0 = 1
-            basic.showString("0")
-        }else {
-            P0 = 0
-        }
-        if (input.pinIsPressed(TouchPin.P1)) {
-            P1 = 1
-            basic.showString("1")
-        }else {
-            P1 = 0
-        }
-        if (input.pinIsPressed(TouchPin.P2)) {
-            P2 = 1
-            basic.showString("2")
-        }else {
-            P2 = 0
-        }
-        if (btnA!=lastbtnA) {
-            if(btnA > 0) {
-                radio.sendValue("btnA", 1)
-            }else {
-                basic.clearScreen()
-                radio.sendValue("btnA", 0)
-            }
-            lastbtnA = btnA
-        }
-        if (btnB!=lastbtnB) {
-            if(btnB > 0) {
-                radio.sendValue("btnB", 1)
-            }else {
-                basic.clearScreen()
-                radio.sendValue("btnB", 0)
-            }
-            lastbtnB = btnB
-        }
-        if (btnAB!=lastbtnAB) {
-            if(btnAB > 0) {
-                radio.sendValue("btnAB", 1)
-            }else {
-                basic.clearScreen()
-                radio.sendValue("btnAB", 0)
-            }
-            lastbtnAB = btnAB
-        }
-        if (btnAB!=lastbtnAB) {
-            if(btnAB > 0) {
-                radio.sendValue("btnAB", 1)
-            }else {
-                basic.clearScreen()
-                radio.sendValue("btnAB", 0)
-            }
-            lastbtnAB = btnAB
-        }
-        if (P0!=lastP0) {
-            if(P0 > 0) {
-                radio.sendValue("P0", 1)
-            }else {
-                basic.clearScreen()
-                radio.sendValue("P0", 0)
-            }
-            lastP0 = P0
-        }
-        if (P1!=lastP1) {
-            if(P1 > 0) {
-                radio.sendValue("P1", 1)
-            }else {
-                basic.clearScreen()
-                radio.sendValue("P1", 0)
-            }
-            lastP1 = P1
-        }
-        if (P2!=lastP2) {
-            if(P2 > 0) {
-                radio.sendValue("P2", 1)
-            }else {
-                basic.clearScreen()
-                radio.sendValue("P2", 0)
-            }
-            lastP2 = P2
-        }
-
-        if (input.acceleration(Dimension.X) > 300) {
-            move = 1
-        } else if (input.acceleration(Dimension.X) < -300) {
-            move = -1
-        } else {
-            move = 0
-        }
-
-        if(input.runningTime()-imu_timer > 300) {
-            radio.sendValue("move", move)
-            imu_timer = input.runningTime()
-        }
-
-        radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
-            //--- while we get the power-value from pair device (from Unity game-> serial-master-micro:bit) ---//
-            if (msg_name.compare("power") == 0) {
-                if(msg_value >= 0 && msg_value <= 5) {
-                    power_list[msg_value].showImage(0)
-                }
-            }
-        })
-    }
-
-
-    /**
-    * [SingleUserConsole] 搖桿的執行功能，捕捉A/B按鍵以及加速計的X軸，並直接傳送Serial訊號
-    */
-    //% blockId="ConsoleExcueAtHome" block="console excue @ Home"
-    //% blockGap=20 weight=80
-    export function ConsoleExcueAtHome(): void {
-        if (input.buttonIsPressed(Button.A)) {
-            btnA = 1
-            basic.showString("A")
-        }else {
-            btnA = 0
-        }
-        if (input.buttonIsPressed(Button.B)) {
-            btnB = 1
-            basic.showString("B")
-        }else {
-            btnB = 0
-        }
-        if (input.pinIsPressed(TouchPin.P0)) {
-            P0 = 1
-            basic.showString("0")
-        }else {
-            P0 = 0
-        }
-        if (input.pinIsPressed(TouchPin.P1)) {
-            P1 = 1
-            basic.showString("1")
-        }else {
-            P1 = 0
-        }
-        if (input.pinIsPressed(TouchPin.P2)) {
-            P2 = 1
-            basic.showString("2")
-        }else {
-            P2 = 0
-        }
-        if (btnA!=lastbtnA) {
-            if(btnA > 0) {
-                serial.writeLine("btnA=" + 1)
-            }else {
-                basic.clearScreen()
-                serial.writeLine("btnA=" + 0)
-            }
-            lastbtnA = btnA
-        }
-        if (btnB!=lastbtnB) {
-            if(btnB > 0) {
-                serial.writeLine("btnB=" + 1)
-            }else {
-                basic.clearScreen()
-                serial.writeLine("btnB=" + 0)
-            }
-            lastbtnB = btnB
-        }
-        if (P0!=lastP0) {
-            if(P0 > 0) {
-                serial.writeLine("P0=" + 1)
-            }else {
-                basic.clearScreen()
-                serial.writeLine("P0=" + 0)
-            }
-            lastP0 = P0
-        }
-        if (P1!=lastP1) {
-            if(P1 > 0) {
-                serial.writeLine("P1=" + 1)
-            }else {
-                basic.clearScreen()
-                serial.writeLine("P1=" + 0)
-            }
-            lastP1 = P1
-        }
-        if (P2!=lastP2) {
-            if(P2 > 0) {
-                serial.writeLine("P2=" + 1)
-            }else {
-                basic.clearScreen()
-                serial.writeLine("P2=" + 1)
-            }
-            lastP2 = P2
-        }
-
-        if (input.acceleration(Dimension.X) > 300) {
-            move = 1
-        } else if (input.acceleration(Dimension.X) < -300) {
-            move = -1
-        } else {
-            move =0
-        }
-
-        if(input.runningTime()-imu_timer > 100 ) {
-            if(isPlay==1) {
-                serial.writeLine("move=" + move)
-            }else {
-                serial.writeLine("205")
-            }
-            imu_timer = input.runningTime()
-        }
-
-
-        let tmpstr = "" 
-        serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
-            tmpstr = serial.readUntil('\n')
-
-            if (tmpstr.compare("#get") == 0) {
-                isPlay = 1;
-            }
-        })
-    }
-
     
 
     /**
@@ -588,32 +348,21 @@ namespace GameRemoteConsole{
             if (tmpstr.compare("#0") == 0) {
                 power_list[0].showImage(0)
                 r_msgout = 0;        
-                //serial.writeLine("You give me: [0]")
             } else if (tmpstr.compare("#1") == 0) {
                 //power_list[1].showImage(0)
                 r_msgout = 1;
-
-                //serial.writeLine("You give me: [1]")
             } else if (tmpstr.compare("#2") == 0) {
                 //power_list[2].showImage(0)
                 r_msgout = 2;
-
-                serial.writeLine("You give me: [2]")
             } else if (tmpstr.compare("#3") == 0) {
                 //power_list[3].showImage(0)
                 r_msgout = 3;
-
-                //serial.writeLine("You give me: [3]")
             } else if (tmpstr.compare("#4") == 0) {
                 //power_list[4].showImage(0)
                 r_msgout = 4;
-
-                //serial.writeLine("You give me: [4]")
             } else if (tmpstr.compare("#5") == 0) {
                 //power_list[5].showImage(0)
                 r_msgout = 5;
-
-                //serial.writeLine("You give me: [5]")
             } else {
                 //serial.writeLine("other string: " + tmpstr + " :" +     tmpstr.length)
             }
