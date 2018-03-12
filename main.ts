@@ -185,6 +185,7 @@ namespace GameRemoteConsole{
             basic.showString("C")
             radio.sendValue("btnAB", 1)
         }
+        /*
         if (input.pinIsPressed(TouchPin.P0)) {
             P0 = 1
             basic.showString("0")
@@ -200,7 +201,7 @@ namespace GameRemoteConsole{
             basic.showString("2")
             radio.sendValue("P2", 1)
         }
-
+        */
         if (input.acceleration(Dimension.X) > 300) {
             move = 1
         } else if (input.acceleration(Dimension.X) < -300) {
@@ -225,9 +226,9 @@ namespace GameRemoteConsole{
                 lastup = up
                 upCount = 0
             } else {
-                if(upCount<3) {
+                if(upCount<2) {
                     radio.sendValue("btnB", up)
-                    upCount += 1
+                    upCount = upCount + 1
                 }
             }
             imu_timer = input.runningTime()
