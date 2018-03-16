@@ -198,14 +198,14 @@ namespace GameRemoteConsole{
                 cmd_timer_list[2] = input.runningTime()
             }
         }
-/*
+
         input.onGesture(Gesture.ThreeG, () => {
             if (input.runningTime() - shakeTime > 500) {
                 shake = 100
                 shakeTime = input.runningTime()
             }
         })
-*/
+
         if (input.acceleration(Dimension.X) > 300) {
             move = 4    //right
         } else if (input.acceleration(Dimension.X) < -300) {
@@ -318,8 +318,7 @@ namespace GameRemoteConsole{
                 lastbtnAB = btnAB
                 resetTimer = input.runningTime()
             }  else if (msg_name.compare("shake") == 0) {
-                if(t_output==1) {
-                    
+                if(t_output==1) {                
                     if(input.runningTime()-cmd_timer_list[3]>1000) {
                         serial.writeLine(shakeStr + "=1")
                         cmd_timer_list[3] = input.runningTime()
@@ -327,7 +326,7 @@ namespace GameRemoteConsole{
                 }
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
-
+                /*
                 if(msg_value>=100) {    // shack
                     if(input.runningTime()-cmd_timer_list[3]>500) {
                         serial.writeLine(shakeStr + "=1")
@@ -359,6 +358,7 @@ namespace GameRemoteConsole{
                     }
                     msg_value -= 10;
                 }
+                */
                 move = msg_value
             } 
 
