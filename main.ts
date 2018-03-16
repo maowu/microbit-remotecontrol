@@ -272,6 +272,7 @@ namespace GameRemoteConsole{
         radio.onDataPacketReceived( ({ receivedString: msg_name, receivedNumber: msg_value }) =>  {
 
             // -- start check message content --- //
+            /*
             if (msg_name.compare("btnA") == 0) {
                 if (msg_value > 0) {
                     btnA = 1
@@ -325,7 +326,9 @@ namespace GameRemoteConsole{
                     }
                 }
                 resetTimer = input.runningTime()
-            } else if (msg_name.compare("move") == 0) {
+            }
+            */
+            if (msg_name.compare("move") == 0) {
                 /*
                 if(msg_value>=100) {    // shack
                     if(input.runningTime()-cmd_timer_list[3]>500) {
