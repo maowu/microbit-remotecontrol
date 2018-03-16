@@ -262,7 +262,7 @@ namespace GameRemoteConsole{
                 if (msg_value > 0) {
                     btnA = 1
                     if(t_led) {
-                        if(input.runningTime()-cmd_timer_list[0]>1000) {
+                        if(input.runningTime()-cmd_timer_list[0]>500) {
                             basic.showString("A");
                             cmd_timer_list[0] = input.runningTime()
                         }
@@ -277,9 +277,9 @@ namespace GameRemoteConsole{
                 if (msg_value > 0) {
                     btnB = 1
                     if(t_led) {
-                        if(input.runningTime()-cmd_timer_list[1]>1000) {
+                        if(input.runningTime()-cmd_timer_list[0]>500) {
                             basic.showString("B");
-                            cmd_timer_list[1] = input.runningTime()
+                            cmd_timer_list[0] = input.runningTime()
                         }
                     }
                 } else {
@@ -292,9 +292,9 @@ namespace GameRemoteConsole{
                 if (msg_value > 0) {
                     btnAB = 1
                     if(t_led) {
-                        if(input.runningTime()-cmd_timer_list[2]>1000) {
+                        if(input.runningTime()-cmd_timer_list[0]>500) {
                             basic.showString("C");
-                            cmd_timer_list[2] = input.runningTime()
+                            cmd_timer_list[0] = input.runningTime()
                         }
                     }
                 } else {
