@@ -236,8 +236,8 @@ namespace GameRemoteConsole{
         if(input.runningTime()-imu_timer > 1000) {
             radio.sendValue("move", (move+up+btnAB+shake)     // 0:down, 1:up, 2:l-down, 3: l_up, 4:r-down, 5:r-up
             //radio.sendValue("move", move)
-            btnAB = 0;
-            shake = 0;
+            btnAB = 0
+            shake = 0
             imu_timer = input.runningTime()
         }
 
