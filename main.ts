@@ -62,6 +62,8 @@ namespace GameRemoteConsole{
     
     let isPlay = 0
 
+    let shakeTime = 0;
+
     //powerLED define
     let power_list = [
     images.createImage(`
@@ -329,7 +331,7 @@ namespace GameRemoteConsole{
             }
             */
             if (msg_name.compare("move") == 0) {
-                /*
+                
                 if(msg_value>=100) {    // shack
                     if(input.runningTime()-cmd_timer_list[3]>500) {
                         serial.writeLine(shakeStr + "=1")
@@ -361,7 +363,7 @@ namespace GameRemoteConsole{
                     }
                     msg_value -= 10;
                 }
-                */
+                
                 move = msg_value
             } 
 
