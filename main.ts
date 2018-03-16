@@ -173,7 +173,7 @@ namespace GameRemoteConsole{
     //% blockGap=20 weight=80
     export function ConsoleExcueSimple(): void {
         if (input.buttonIsPressed(Button.A)) {
-            if(input.runningTime()-cmd_timer_list[0]>500) {
+            if(input.runningTime()-cmd_timer_list[0]>300) {
                 //btnA = 1
                 btnAB = 10
                 basic.showString("A")
@@ -183,7 +183,7 @@ namespace GameRemoteConsole{
             }
         }
         if (input.buttonIsPressed(Button.B)) {
-            if(input.runningTime()-cmd_timer_list[1]>500) {
+            if(input.runningTime()-cmd_timer_list[1]>300) {
                 //btnB = 1
                 btnAB = 20
                 basic.showString("B")
@@ -202,8 +202,8 @@ namespace GameRemoteConsole{
             }
         }
 
-        input.onGesture(Gesture.ThreeG, () => {
-            if (input.runningTime() - shakeTime > 500) {
+        input.onGesture(Gesture.Shake, () => {
+            if (input.runningTime() - shakeTime > 200) {
                 shake = 100
                 shakeTime = input.runningTime()
             }
