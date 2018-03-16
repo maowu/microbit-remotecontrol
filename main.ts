@@ -358,7 +358,7 @@ namespace GameRemoteConsole{
                             basic.showString("B");
                         }
                         if (t_output==1) {
-                            serial.writeLine(btnBStr + "=1")
+                            serial.writeLine("move=1") 
                         }
                             
                         cmd_timer_list[0] = input.runningTime()
@@ -370,7 +370,7 @@ namespace GameRemoteConsole{
                             basic.showString("A");
                         }
                         if (t_output==1) {
-                            serial.writeLine(btnAStr + "=1")
+                            serial.writeLine(shakeStr + "=1")
                         }
                             
                         cmd_timer_list[0] = input.runningTime()
