@@ -203,10 +203,10 @@ namespace GameRemoteConsole{
         }
 
         input.onGesture(Gesture.Shake, () => {
-            if (input.runningTime() - shakeTime > 200) {
+            //if (input.runningTime() - shakeTime > 200) {
                 shake = 100
-                shakeTime = input.runningTime()
-            }
+            //    shakeTime = input.runningTime()
+            //}
         })
 
         if (input.acceleration(Dimension.X) > 300) {
