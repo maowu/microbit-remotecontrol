@@ -40,7 +40,7 @@ namespace GameRemoteConsole{
     let lastup = 0
     let up = 0
     let upCount = 0
-    let shack = 0
+    let shake = 0
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
@@ -198,14 +198,14 @@ namespace GameRemoteConsole{
                 cmd_timer_list[2] = input.runningTime()
             }
         }
-
+/*
         input.onGesture(Gesture.ThreeG, () => {
             if (input.runningTime() - shakeTime > 500) {
-                shack = 100
+                shake = 100
                 shakeTime = input.runningTime()
             }
         })
-
+*/
         if (input.acceleration(Dimension.X) > 300) {
             move = 4    //right
         } else if (input.acceleration(Dimension.X) < -300) {
@@ -232,10 +232,10 @@ namespace GameRemoteConsole{
         }
 
         if(input.runningTime()-imu_timer > 1000) {
-            radio.sendValue("move", move+up+btnAB+shack)    // 0:down, 1:up, 2:l-down, 3: l_up, 4:r-down, 5:r-up
+            radio.sendValue("move", (move+up+btnAB+shake)     // 0:down, 1:up, 2:l-down, 3: l_up, 4:r-down, 5:r-up
             //radio.sendValue("move", move)
             btnAB = 0;
-            shack = 0;
+            shake = 0;
             imu_timer = input.runningTime()
         }
 
@@ -327,15 +327,7 @@ namespace GameRemoteConsole{
                 }
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
-            /*
-                if (msg_value > 0) {
-                    move = 1
-                } else if(msg_value < 0){
-                    move = -1
-                } else {
-                    move = 0
-                }
-            */
+
                 if(msg_value>=100) {    // shack
                     if(input.runningTime()-cmd_timer_list[3]>500) {
                         serial.writeLine(shakeStr + "=1")
