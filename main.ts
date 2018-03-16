@@ -40,6 +40,7 @@ namespace GameRemoteConsole{
     let lastup = 0
     let up = 0
     let upCount = 0
+    let shack = 0
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
@@ -169,31 +170,42 @@ namespace GameRemoteConsole{
     //% blockGap=20 weight=80
     export function ConsoleExcueSimple(): void {
         if (input.buttonIsPressed(Button.A)) {
-            if(input.runningTime()-cmd_timer_list[0]>1000) {
+            if(input.runningTime()-cmd_timer_list[0]>500) {
                 //btnA = 1
+                btnAB = 10
                 basic.showString("A")
-                radio.sendValue("btnA", 1)
+                //radio.sendValue("btnA", 1)
                 //btnA = 0
                 cmd_timer_list[0] = input.runningTime()
             }
         }
         if (input.buttonIsPressed(Button.B)) {
-            if(input.runningTime()-cmd_timer_list[1]>1000) {
+            if(input.runningTime()-cmd_timer_list[1]>500) {
                 //btnB = 1
+                btnAB = 20
                 basic.showString("B")
-                radio.sendValue("btnB", 1)
+                //radio.sendValue("btnB", 1)
                 //btnB = 0
                 cmd_timer_list[1] = input.runningTime()
             }
         }
         if (input.buttonIsPressed(Button.AB)) {
-            if(input.runningTime()-cmd_timer_list[2]>1000) {
+            if(input.runningTime()-cmd_timer_list[2]>500) {
                 //btnAB = 1
+                btnAB = 30
                 basic.showString("C")
-                radio.sendValue("btnAB", 1)
+                //radio.sendValue("btnAB", 1)
                 cmd_timer_list[2] = input.runningTime()
             }
         }
+
+        input.onGesture(Gesture.ThreeG, () => {
+            if (input.runningTime() - shakeTime > 500) {
+                shack = 100
+                shakeTime = input.runningTime()
+            }
+        })
+
         if (input.acceleration(Dimension.X) > 300) {
             move = 4    //right
         } else if (input.acceleration(Dimension.X) < -300) {
@@ -220,8 +232,10 @@ namespace GameRemoteConsole{
         }
 
         if(input.runningTime()-imu_timer > 1000) {
-            radio.sendValue("move", move+up)    // 0:down, 1:up, 2:l-down, 3: l_up, 4:r-down, 5:r-up
+            radio.sendValue("move", move+up+btnAB+shack)    // 0:down, 1:up, 2:l-down, 3: l_up, 4:r-down, 5:r-up
             //radio.sendValue("move", move)
+            btnAB = 0;
+            shack = 0;
             imu_timer = input.runningTime()
         }
 
@@ -322,6 +336,37 @@ namespace GameRemoteConsole{
                     move = 0
                 }
             */
+                if(msg_value>=100) {    // shack
+                    if(input.runningTime()-cmd_timer_list[3]>500) {
+                        serial.writeLine(shakeStr + "=1")
+                        cmd_timer_list[3] = input.runningTime()
+                    }
+                    msg_value -= 100;
+                }else if(msg_value>=30){    //btnAB
+                    if(t_led) {
+                        if(input.runningTime()-cmd_timer_list[0]>500) {
+                            basic.showString("C");
+                            cmd_timer_list[0] = input.runningTime()
+                        }
+                    }
+                    msg_value -= 30;
+                }else if(msg_value>=20){    //btnAB
+                    if(t_led) {
+                        if(input.runningTime()-cmd_timer_list[0]>500) {
+                            basic.showString("B");
+                            cmd_timer_list[0] = input.runningTime()
+                        }
+                    }
+                    msg_value -= 20;
+                }else if(msg_value>=10){    //btnAB
+                    if(t_led) {
+                        if(input.runningTime()-cmd_timer_list[0]>500) {
+                            basic.showString("A");
+                            cmd_timer_list[0] = input.runningTime()
+                        }
+                    }
+                    msg_value -= 10;
+                }
                 move = msg_value
             } 
 
