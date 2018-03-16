@@ -337,7 +337,7 @@ namespace GameRemoteConsole{
                         serial.writeLine(shakeStr + "=1")
                         cmd_timer_list[3] = input.runningTime()
                     }
-                    msg_value -= 100;
+                    msg_value = msg_value - 100;
                 }else if(msg_value>=30){    //btnAB
                     if(t_led) {
                         if(input.runningTime()-cmd_timer_list[0]>500) {
@@ -345,7 +345,7 @@ namespace GameRemoteConsole{
                             cmd_timer_list[0] = input.runningTime()
                         }
                     }
-                    msg_value -= 30;
+                    msg_value = msg_value - 30;
                 }else if(msg_value>=20){    //btnAB
                     if(t_led) {
                         if(input.runningTime()-cmd_timer_list[0]>500) {
@@ -353,7 +353,7 @@ namespace GameRemoteConsole{
                             cmd_timer_list[0] = input.runningTime()
                         }
                     }
-                    msg_value -= 20;
+                    msg_value = msg_value -  20;
                 }else if(msg_value>=10){    //btnAB
                     if(t_led) {
                         if(input.runningTime()-cmd_timer_list[0]>500) {
@@ -361,7 +361,7 @@ namespace GameRemoteConsole{
                             cmd_timer_list[0] = input.runningTime()
                         }
                     }
-                    msg_value -= 10;
+                    msg_value = msg_value - 10;
                 }
                 
                 move = msg_value
