@@ -262,7 +262,10 @@ namespace GameRemoteConsole{
                 if (msg_value > 0) {
                     btnA = 1
                     if(t_led) {
-                        basic.showString("A");
+                        if(input.runningTime()-cmd_timer_list[0]>1000) {
+                            basic.showString("A");
+                            cmd_timer_list[0] = input.runningTime()
+                        }
                     }
                 } else {
                     btnA = 0
@@ -274,7 +277,10 @@ namespace GameRemoteConsole{
                 if (msg_value > 0) {
                     btnB = 1
                     if(t_led) {
-                        basic.showString("B");
+                        if(input.runningTime()-cmd_timer_list[1]>1000) {
+                            basic.showString("B");
+                            cmd_timer_list[1] = input.runningTime()
+                        }
                     }
                 } else {
                     btnB = 0
@@ -286,7 +292,10 @@ namespace GameRemoteConsole{
                 if (msg_value > 0) {
                     btnAB = 1
                     if(t_led) {
-                        basic.showString("C");
+                        if(input.runningTime()-cmd_timer_list[2]>1000) {
+                            basic.showString("C");
+                            cmd_timer_list[2] = input.runningTime()
+                        }
                     }
                 } else {
                     btnAB = 0
@@ -296,7 +305,11 @@ namespace GameRemoteConsole{
                 resetTimer = input.runningTime()
             }  else if (msg_name.compare("shake") == 0) {
                 if(t_output==1) {
-                    serial.writeLine(shakeStr + "=1")
+                    
+                    if(input.runningTime()-cmd_timer_list[3]>1000) {
+                        serial.writeLine(shakeStr + "=1")
+                        cmd_timer_list[3] = input.runningTime()
+                    }
                 }
                 resetTimer = input.runningTime()
             } else if (msg_name.compare("move") == 0) {
@@ -350,7 +363,7 @@ namespace GameRemoteConsole{
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), () => {
             tmpstr = serial.readUntil('\n')
             if (tmpstr.compare("#0") == 0) {
-                power_list[0].showImage(0)
+                //power_list[0].showImage(0)
                 r_msgout = 0;        
             } else if (tmpstr.compare("#1") == 0) {
                 //power_list[1].showImage(0)
