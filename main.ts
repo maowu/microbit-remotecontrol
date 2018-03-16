@@ -169,21 +169,30 @@ namespace GameRemoteConsole{
     //% blockGap=20 weight=80
     export function ConsoleExcueSimple(): void {
         if (input.buttonIsPressed(Button.A)) {
-            btnA = 1
-            basic.showString("A")
-            radio.sendValue("btnA", 1)
-            btnA = 0
+            if(input.runningTime()-cmd_timer_list[0]>1000) {
+                //btnA = 1
+                basic.showString("A")
+                radio.sendValue("btnA", 1)
+                //btnA = 0
+                cmd_timer_list[0] = input.runningTime()
+            }
         }
         if (input.buttonIsPressed(Button.B)) {
-            btnB = 1
-            basic.showString("B")
-            radio.sendValue("btnB", 1)
-            btnB = 0
+            if(input.runningTime()-cmd_timer_list[1]>1000) {
+                //btnB = 1
+                basic.showString("B")
+                radio.sendValue("btnB", 1)
+                //btnB = 0
+                cmd_timer_list[1] = input.runningTime()
+            }
         }
         if (input.buttonIsPressed(Button.AB)) {
-            btnAB = 1
-            basic.showString("C")
-            radio.sendValue("btnAB", 1)
+            if(input.runningTime()-cmd_timer_list[2]>1000) {
+                //btnAB = 1
+                basic.showString("C")
+                radio.sendValue("btnAB", 1)
+                cmd_timer_list[2] = input.runningTime()
+            }
         }
         if (input.acceleration(Dimension.X) > 300) {
             move = 4    //right
