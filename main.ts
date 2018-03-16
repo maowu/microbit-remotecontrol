@@ -41,6 +41,7 @@ namespace GameRemoteConsole{
     let up = 0
     let upCount = 0
     let shake = 0
+    let cmd_get = 0
 
     let cmd_list: number[] = []
     cmd_list = [0, 0, 0]
@@ -330,6 +331,7 @@ namespace GameRemoteConsole{
                 resetTimer = input.runningTime()
             }
             */
+            cmd_get = msg_value
             if (msg_name.compare("move") == 0) {
                 
                 if(msg_value>=100) {    // shack
@@ -337,7 +339,7 @@ namespace GameRemoteConsole{
                         serial.writeLine(shakeStr + "=1")
                         cmd_timer_list[3] = input.runningTime()
                     }
-                    msg_value = msg_value - 100;
+                    cmd_get = cmd_get - 100;
                 }else if(msg_value>=30){    //btnAB
                     if(t_led) {
                         if(input.runningTime()-cmd_timer_list[0]>500) {
@@ -345,7 +347,7 @@ namespace GameRemoteConsole{
                             cmd_timer_list[0] = input.runningTime()
                         }
                     }
-                    msg_value = msg_value - 30;
+                    cmd_get = cmd_get  - 30;
                 }else if(msg_value>=20){    //btnAB
                     if(t_led) {
                         if(input.runningTime()-cmd_timer_list[0]>500) {
@@ -353,7 +355,7 @@ namespace GameRemoteConsole{
                             cmd_timer_list[0] = input.runningTime()
                         }
                     }
-                    msg_value = msg_value -  20;
+                    cmd_get = cmd_get  -  20;
                 }else if(msg_value>=10){    //btnAB
                     if(t_led) {
                         if(input.runningTime()-cmd_timer_list[0]>500) {
@@ -361,10 +363,10 @@ namespace GameRemoteConsole{
                             cmd_timer_list[0] = input.runningTime()
                         }
                     }
-                    msg_value = msg_value - 10;
+                    cmd_get = cmd_get  - 10;
                 }
                 
-                move = msg_value
+                move = cmd_get
             } 
 
 
