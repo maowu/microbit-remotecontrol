@@ -341,32 +341,44 @@ namespace GameRemoteConsole{
                     }
                     cmd_get = cmd_get - 100;
                 }else if(msg_value>=30){    //btnAB
-                    if(t_led) {
-                        if(input.runningTime()-cmd_timer_list[0]>500) {
+                    if(input.runningTime()-cmd_timer_list[0]>500) {
+                        if(t_led) {
                             basic.showString("C");
-                            cmd_timer_list[0] = input.runningTime()
                         }
+                        if (t_output==1) {
+                            serial.writeLine(btnABStr + "=1")
+                        }
+                            
+                        cmd_timer_list[0] = input.runningTime()
                     }
                     cmd_get = cmd_get  - 30;
-                }else if(msg_value>=20){    //btnAB
-                    if(t_led) {
-                        if(input.runningTime()-cmd_timer_list[0]>500) {
+                }else if(msg_value>=20){    //btnB
+                    if(input.runningTime()-cmd_timer_list[0]>500) {
+                        if(t_led) {
                             basic.showString("B");
-                            cmd_timer_list[0] = input.runningTime()
                         }
+                        if (t_output==1) {
+                            serial.writeLine(btnBStr + "=1")
+                        }
+                            
+                        cmd_timer_list[0] = input.runningTime()
                     }
                     cmd_get = cmd_get  -  20;
-                }else if(msg_value>=10){    //btnAB
-                    if(t_led) {
-                        if(input.runningTime()-cmd_timer_list[0]>500) {
+                }else if(msg_value>=10){    //btnA
+                    if(input.runningTime()-cmd_timer_list[0]>500) {
+                        if(t_led) {
                             basic.showString("A");
-                            cmd_timer_list[0] = input.runningTime()
                         }
+                        if (t_output==1) {
+                            serial.writeLine(btnAStr + "=1")
+                        }
+                            
+                        cmd_timer_list[0] = input.runningTime()
                     }
                     cmd_get = cmd_get  - 10;
                 }
                 
-                move = cmd_get
+                move = cmd_get % 10
             } 
 
 
